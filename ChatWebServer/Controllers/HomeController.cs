@@ -2,6 +2,7 @@
 using ChatWebServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Cryptography;
 
 namespace ChatWebServer.Controllers
 {
@@ -25,7 +26,7 @@ namespace ChatWebServer.Controllers
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            if (!UserIsAuthenticated(new User { Password = password, Username = username })) return View("AuthenticateUser");
+            if (!UserIsAuthenticated(new User { Password = PasswordHasher.HashPassword(password), Username = username })) return View("AuthenticateUser");
             return View("Index", username);
         }
 
@@ -37,7 +38,7 @@ namespace ChatWebServer.Controllers
 
         private bool UserIsAuthenticated(User userToAuthenticate)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Username == userToAuthenticate.Username && u.Password == userToAuthenticate.Password);
+            var user = _context.Users.SingleOrDefault(u => u.Username == userToAuthenticate.Username && PasswordHasher.VerifyPassword(u.Password, userToAuthenticate.Password));
 
             return user != null;
         }
