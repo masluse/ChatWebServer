@@ -6,9 +6,14 @@ namespace ChatWebServer.Models
     {
         [Column("userID")]
         public int UserID { get; set; }
+
         [Column("username")]
         public string Username { get; set; }
+
         [Column("password")]
         public string Password { get; set; }
+
+        [Column("isActive")]
+        public bool IsActive { get; set; }
     }
 }

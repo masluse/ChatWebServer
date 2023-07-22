@@ -55,3 +55,36 @@ body {
     background-color: #2F4F4F;  
     color: white;
 }
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-control {
+    background-color: #2F4F4F;
+    border: none;
+    color: white;
+}
+
+.form-control:focus {
+    background-color: #2F4F4F;
+    border: none;
+    color: white;
+    box-shadow: none;
+}
+
+.form-control::placeholder {
+    color: white;
+}
+
+.btn-primary {
+    background-color: #2F4F4F;
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #27403E;
+    box-shadow: none;
+}
