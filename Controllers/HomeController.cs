@@ -25,7 +25,7 @@ namespace ChatWebServer.Controllers
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            //if (!UserIsAuthenticated(new User { Password = password, Username = username })) return View("AuthenticateUser");
+            if (!UserIsAuthenticated(new User { Password = password, Username = username })) return View("AuthenticateUser");
             return View("Index", username);
         }
 
