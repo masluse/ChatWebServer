@@ -16,4 +16,4 @@ WORKDIR /app
 COPY --from=build /app/out ./
 
 # Starte die Webanwendung beim Start des Containers
-ENTRYPOINT ["dotnet", "ChatWebServer.dll"]
+ENTRYPOINT ["dotnet", "run"]
