@@ -17,6 +17,6 @@ jobs:
     - name: Login into Docker Hub
       run: docker login ghcr.io -u masluse -p ${{ secrets.DOCKER_TOKEN }}
     - name: Build the Docker image
-      run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest .
+      run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest ./ChatWebServer/
     - name: Push Docker image
       run: docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
