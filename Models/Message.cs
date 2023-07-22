@@ -1,4 +1,6 @@
-﻿namespace ChatWebServer.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChatWebServer.Models
 {
     public class Message
     {
