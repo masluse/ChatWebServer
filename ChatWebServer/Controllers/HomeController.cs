@@ -42,14 +42,8 @@ namespace ChatWebServer.Controllers
         {
             var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
 
-            if (user == null)
-                return false;
-
-            // Compare the hashed password
-            var passwordHasher = new PasswordHasher<User>();
-            var result = passwordHasher.VerifyHashedPassword(user, user.Password, userToAuthenticate.Password);
-
-            return result == PasswordVerificationResult.Success && user.IsActive;
+            if (user == null) return false;
+            else return user.Password == userToAuthenticate.Password;
         }
     }
 }

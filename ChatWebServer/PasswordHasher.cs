@@ -21,9 +21,12 @@ namespace ChatWebServer
                 iterationCount: 100000,
                 numBytesRequested: 256 / 8));
 
-            Console.WriteLine($"Hashed: {hashed}");
+            // Save the salt along with the hashed password
+            string hashedPasswordWithSalt = $"{Convert.ToBase64String(salt)}.{hashed}";
 
-            return hashed;
+            Console.WriteLine($"Hashed with salt: {hashedPasswordWithSalt}");
+
+            return hashedPasswordWithSalt;
         }
     }
 }
