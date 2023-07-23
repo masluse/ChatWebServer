@@ -9,7 +9,7 @@ namespace ChatWebServer.Models
         [Column("value")]
         public string Value { get; set; }
         [Column("timestamp")]
-        public DateTime Timestamp { get; set; }
+        public DateTimeOffset Timestamp { get; set; }
         [Column("FK_userID")]
         public int FK_userID { get; set; }
 
