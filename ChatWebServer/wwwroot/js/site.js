@@ -33,7 +33,7 @@
 
         e.preventDefault();
 
-        var message = time + " " + userName + ": " + this.value;
+        var message = userName + ": " + this.value;
         socket.send(message);
         saveMessageToDb(message);
         this.value = "";
@@ -43,9 +43,9 @@
         fetch("https://chat.mregli.com/Home/SaveMessage", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'SaveMessage'
             },
-            body: JSON.stringify({ message: message})
+            body: message
         })
             .then(response => {
                 console.log(response.status + ": " + response.statusText)
