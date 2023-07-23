@@ -43,12 +43,12 @@
         fetch("https://chat.mregli.com/Home/SaveMessage", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'text/plain',
             },
-            body: JSON.stringify({ message: message})
+            body: message
         })
             .then(response => {
-                console.log(response.status + ": " + response.statusText)
+                console.log(response.status + " " + response.statusText)
             })
             .catch(error => {
                 console.error("Error saving message: ", error)
