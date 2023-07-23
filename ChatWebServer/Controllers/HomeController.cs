@@ -27,8 +27,8 @@ namespace ChatWebServer.Controllers
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            if (!UserIsAuthenticated(new User { Password = PasswordHasher.HashPassword(password), Username = username, IsActive = true, UserID = 0 })) return View("AuthenticateUser");
-            return View("Index", username);
+            if (!UserIsAuthenticated(new User { Password = PasswordHasher.HashPassword(password), Username = username, IsActive = true, UserID = 0 })) return View("AuthenticateUser")
+            else return View("Index", username);
         }
 
 
@@ -40,12 +40,10 @@ namespace ChatWebServer.Controllers
 
         private bool UserIsAuthenticated(User userToAuthenticate)
         {
-            //var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
+            var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
 
-            //if (user == null) return false;
-            //else return user.Password == userToAuthenticate.Password;
-            Console.WriteLine("password: " + userToAuthenticate.Password);
-            return false; 
+            if (user == null) return false;
+            else return user.Password == userToAuthenticate.Password;
         }
     }
 }
