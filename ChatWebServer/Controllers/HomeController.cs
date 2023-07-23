@@ -40,10 +40,12 @@ namespace ChatWebServer.Controllers
 
         private bool UserIsAuthenticated(User userToAuthenticate)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
+            //var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
 
-            if (user == null) return false;
-            else return user.Password == userToAuthenticate.Password;
+            //if (user == null) return false;
+            //else return user.Password == userToAuthenticate.Password;
+            Console.WriteLine("password: " + userToAuthenticate.Password);
+            return false; 
         }
     }
 }

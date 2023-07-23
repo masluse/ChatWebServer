@@ -1,32 +1,18 @@
-﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
-using System;
-using System.Security.Cryptography;
-
+﻿using System.Security.Cryptography;
 namespace ChatWebServer
 {
     public class PasswordHasher
     {
         public static string HashPassword(string password)
         {
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
+            if (String.IsNullOrEmpty(password)) return String.Empty;
+
+            using (HashAlgorithm algorithm = SHA256.Create())
             {
-                rng.GetBytes(salt);
+                byte[] textData = System.Text.Encoding.UTF8.GetBytes(password);
+                byte[] hash = algorithm.ComputeHash(textData);
+                return BitConverter.ToString(hash).Replace("-", String.Empty);
             }
-
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: 100000,
-                numBytesRequested: 256 / 8));
-
-            // Save the salt along with the hashed password
-            string hashedPasswordWithSalt = $"{Convert.ToBase64String(salt)}.{hashed}";
-
-            Console.WriteLine($"Hashed with salt: {hashedPasswordWithSalt}");
-
-            return hashedPasswordWithSalt;
         }
     }
 }
