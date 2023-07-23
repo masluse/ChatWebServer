@@ -1,5 +1,6 @@
 ﻿using ChatWebServer.DBContext;
 using ChatWebServer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Cryptography;
@@ -39,9 +40,16 @@ namespace ChatWebServer.Controllers
 
         private bool UserIsAuthenticated(User userToAuthenticate)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Username == userToAuthenticate.Username && PasswordHasher.HashPassword(u.Password) == userToAuthenticate.Password);
+            var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
 
-            return user != null;
+            if (user == null)
+                return false;
+
+            // Compare the hashed password
+            var passwordHasher = new PasswordHasher<User>();
+            var result = passwordHasher.VerifyHashedPassword(user, user.Password, userToAuthenticate.Password);
+
+            return result == PasswordVerificationResult.Success && user.IsActive;
         }
     }
 }
