@@ -19,6 +19,16 @@ namespace ChatWebServer.DBContext
         public DbSet<User> Users { get; set; }
         public DbSet<Message> Messages { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message>()
+                .HasOne(m => m.User)
+                .WithMany()
+                .HasForeignKey(m => m.FK_userID)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Get the connection string from appsettings.json

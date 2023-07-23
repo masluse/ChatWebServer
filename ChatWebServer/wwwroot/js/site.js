@@ -3,6 +3,9 @@
     var wsUri = protocol + "//" + window.location.host;
     var socket = new WebSocket(wsUri);
 
+    const d = new Date();
+    let time = d.getTime();
+
     socket.onopen = function (e) {
         console.log("socket opened", e);
     };
@@ -14,7 +17,7 @@
     socket.onmessage = function (e) {
         console.log(e);
         var messageDiv = document.createElement("div");
-        messageDiv.className = "message"; // Update class name for styling
+        messageDiv.className = "message"; 
         messageDiv.textContent = e.data;
         document.getElementById("msgs").appendChild(messageDiv);
     };
@@ -30,8 +33,25 @@
 
         e.preventDefault();
 
-        var message = userName + ": " + this.value;
+        var message = time + " " + userName + ": " + this.value;
         socket.send(message);
+        saveMessageToDb(message);
         this.value = "";
     });
+
+    function saveMessageToDb(message) {
+        fetch("https://chat.mregli.com/Home/SaveMessage", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ message: message})
+        })
+            .then(response => {
+                console.log(response.status + ": " + response.statusText)
+            })
+            .catch(error => {
+                console.error("Error saving message: ", error)
+            })
+    }
 });

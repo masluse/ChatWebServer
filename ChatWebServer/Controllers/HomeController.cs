@@ -12,6 +12,8 @@ namespace ChatWebServer.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
 
+        private static User currentUser; 
+
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
@@ -27,10 +29,24 @@ namespace ChatWebServer.Controllers
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            if (!UserIsAuthenticated(new User { Password = PasswordHasher.HashPassword(password), Username = username, IsActive = true, UserID = 0 })) return View("AuthenticateUser");
+            var loginUser = new User { Password = PasswordHasher.HashPassword(password), Username = username, IsActive = true, UserID = 0 };
+            if (!UserIsAuthenticated(loginUser)) return View("AuthenticateUser");
             else return View("Index", username);
         }
 
+
+        [HttpPost]
+        public IActionResult SaveMessage(string message)
+        {
+            if (string.IsNullOrEmpty(message)) return BadRequest("Message cannot be empty.");
+
+            var newMessage = new Message { Value = message, Timestamp = DateTime.Now, FK_userID = currentUser.UserID };
+
+            _context.Messages.Add(newMessage);
+            _context.SaveChanges();
+
+            return Ok("Message saved succesfully.");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -40,10 +56,10 @@ namespace ChatWebServer.Controllers
 
         private bool UserIsAuthenticated(User userToAuthenticate)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
+            currentUser = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
 
-            if (user == null) return false;
-            else return user.Password == userToAuthenticate.Password;
+            if (currentUser == null) return false;
+            else return currentUser.Password == userToAuthenticate.Password;
         }
     }
 }

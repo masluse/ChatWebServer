@@ -12,5 +12,7 @@ namespace ChatWebServer.Models
         public DateTime Timestamp { get; set; }
         [Column("FK_userID")]
         public int FK_userID { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

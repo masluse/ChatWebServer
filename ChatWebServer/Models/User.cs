@@ -14,6 +14,6 @@ namespace ChatWebServer.Models
         public string Password { get; set; }
 
         [Column("isActive")]
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; 
     }
 }
