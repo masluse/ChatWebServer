@@ -37,7 +37,7 @@
         var messageValue = this.value;
         socket.send(message);
 
-        message = messageValue.substr(messageValue.indexOf(":") + 2); 
+        message = messageValue.substr(messageValue.indexOf(":") + 1); 
         saveMessageToDb(message);
         this.value = "";
     });
