@@ -40,12 +40,12 @@
     });
 
     function saveMessageToDb(message) {
+        var formData = new FormData();
+        formData.append("message", message)
+
         fetch("https://chat.mregli.com/Home/SaveMessage", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain; charset=utf-8',
-            },
-            body: message
+            body: formData
         })
             .then(response => {
                 console.log(response.status + " " + response.statusText)

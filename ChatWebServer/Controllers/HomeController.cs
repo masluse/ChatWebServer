@@ -36,8 +36,7 @@ namespace ChatWebServer.Controllers
 
 
         [HttpPost]
-        [Consumes("text/plain")]
-        public IActionResult SaveMessage([FromBody] string message)
+        public IActionResult SaveMessage(string message)
         {
             if (string.IsNullOrEmpty(message)) return BadRequest("Message cannot be empty.");
 
