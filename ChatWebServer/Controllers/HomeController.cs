@@ -30,6 +30,7 @@ namespace ChatWebServer.Controllers
             return View("Index", username);
         }
 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -38,7 +39,7 @@ namespace ChatWebServer.Controllers
 
         private bool UserIsAuthenticated(User userToAuthenticate)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Username == userToAuthenticate.Username && PasswordHasher.VerifyPassword(u.Password, userToAuthenticate.Password));
+            var user = _context.Users.SingleOrDefault(u => u.Username == userToAuthenticate.Username && PasswordHasher.HashPassword(u.Password) == userToAuthenticate.Password);
 
             return user != null;
         }
