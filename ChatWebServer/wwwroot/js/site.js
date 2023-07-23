@@ -42,9 +42,6 @@
     function saveMessageToDb(message) {
         fetch("https://chat.mregli.com/Home/SaveMessage", {
             method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain',
-            },
             body: message
         })
             .then(response => {
