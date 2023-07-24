@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Login into Docker Hub
-        run: docker login ghcr.io -u masluse -p ${{ secrets.DOCKER_TOKEN }}
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login ghcr.io -u masluse --password-stdin
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest ./ChatWebServer/
       - name: Push Docker image
