@@ -16,3 +16,16 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest ./ChatWebServer/
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
+
+  deploy:
+    needs: build  # Wait for the "build" job to complete
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy Portainer Stack
+        run: |
+          cd /docker/docker-compose/test-deployment/
+          docker-compose pull
+          docker-compose up --force-recreate --build -d
