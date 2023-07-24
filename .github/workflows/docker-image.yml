@@ -16,18 +16,3 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest ./ChatWebServer/
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
-
-  deploy:
-    needs: build  # Wait for the "build" job to complete
-    runs-on: self-hosted
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Deploy Portainer Stack
-        env:
-          PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
-          PORTAINER_USERNAME: ${{ secrets.PORTAINER_USERNAME }}
-          PORTAINER_PASSWORD: ${{ secrets.PORTAINER_PASSWORD }}
-        run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock portainer/agent stack deploy --stack-name test-chatweb --compose-file ./stackfile/test.yml --endpoint ${PORTAINER_URL} --username ${PORTAINER_USERNAME} --password ${PORTAINER_PASSWORD}
