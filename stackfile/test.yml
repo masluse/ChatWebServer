@@ -1,0 +1,41 @@
+version: "3"
+services:
+  chat-server:
+    image: ghcr.io/masluse/chat-web-server:latest
+    container_name: chat-application
+
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.test-chat.rule=Host(`chat-test-chatweb.mregli.com`)
+      - traefik.http.routers.test-chat.entrypoints=websecure
+      - traefik.http.routers.test-chat.tls=true
+      - traefik.http.routers.test-chat.tls.certresolver=cloudflare
+      - traefik.http.services.test-chat.loadBalancer.server.port=80
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+    network_mode: traefik_default
+
+  db:
+    image: postgres:13
+    container_name: chat-application-db
+    environment:
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chatpassword
+      POSTGRES_DB: chat
+    restart: always
+    
+  adminer:
+    image: adminer
+    restart: always
+
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.test-adminer.rule=Host(`adminer-test-chatweb.mregli.com`)
+      - traefik.http.routers.test-adminer.entrypoints=websecure
+      - traefik.http.routers.test-adminer.tls=true
+      - traefik.http.routers.test-adminer.tls.certresolver=cloudflare
+      - traefik.http.services.test-adminer.loadBalancer.server.port=8080
+
+    network_mode: traefik_default
