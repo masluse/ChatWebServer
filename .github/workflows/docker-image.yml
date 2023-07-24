@@ -1,22 +1,33 @@
-name: Docker Image CI
+name: Deploy Portainer Stack
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
   build:
-
     runs-on: self-hosted
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Login into Docker Hub
-      run: docker login ghcr.io -u masluse -p ${{ secrets.DOCKER_TOKEN }}
-    - name: Build the Docker image
-      run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest ./ChatWebServer/
-    - name: Push Docker image
-      run: docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
+      - uses: actions/checkout@v3
+      - name: Login into Docker Hub
+        run: docker login ghcr.io -u masluse -p ${{ secrets.DOCKER_TOKEN }}
+      - name: Build the Docker image
+        run: docker build -t ${{ secrets.DOCKER_REPOSITORY }}:latest ./ChatWebServer/
+      - name: Push Docker image
+        run: docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
+
+  deploy:
+    needs: build  # Wait for the "build" job to complete
+    runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy Portainer Stack
+        env:
+          PORTAINER_URL: ${{ secrets.PORTAINER_URL }}
+          PORTAINER_USERNAME: ${{ secrets.PORTAINER_USERNAME }}
+          PORTAINER_PASSWORD: ${{ secrets.PORTAINER_PASSWORD }}
+        run: |
+          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock portainer/agent stack deploy --stack-name test-chatweb --compose-file ./stackfile/test.yml --endpoint ${PORTAINER_URL} --username ${PORTAINER_USERNAME} --password ${PORTAINER_PASSWORD}
