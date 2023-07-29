@@ -12,7 +12,7 @@ namespace ChatWebServer.DBContext
             : base(options)
         {
             _configuration = configuration;
-            Console.WriteLine(GetConnectionString());
+            Console.WriteLine("connectionstring: {}", GetConnectionString());
         }
 
         public DbSet<User> Users { get; set; }
@@ -25,6 +25,9 @@ namespace ChatWebServer.DBContext
                 .WithMany()
                 .HasForeignKey(m => m.FK_userID)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            InitializeDatabase();
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
