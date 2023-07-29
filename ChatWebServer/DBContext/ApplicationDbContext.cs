@@ -12,7 +12,6 @@ namespace ChatWebServer.DBContext
             : base(options)
         {
             _configuration = configuration;
-            Console.WriteLine("connectionstring: {}", GetConnectionString());
         }
 
         public DbSet<User> Users { get; set; }
