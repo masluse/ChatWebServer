@@ -29,7 +29,8 @@ namespace ChatWebServer.Controllers
         {
             var loginUser = new User { Password = PasswordHasher.HashPassword(password), Username = username, IsActive = true, UserID = 0 };
             if (!UserIsAuthenticated(loginUser)) return View("AuthenticateUser");
-            else return View("Index", username);
+            else if (currentUser.Role == "ADMIN") return View("AdminPage", username);
+            else return View("UserPage", username);
         }
 
 
