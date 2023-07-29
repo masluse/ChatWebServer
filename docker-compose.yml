@@ -1,0 +1,29 @@
+version: "3"
+services:
+  chat-server:
+    build: .
+    container_name: chatweb-application
+    ports:
+      - 80:80
+    environment:
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chatpassword
+      POSTGRES_HOST: chatweb-application-db
+      POSTGRES_PORT: 5432
+      POSTGRES_DATABASE: chat
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: chatweb-application-db
+    environment:
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: chatpassword
+      POSTGRES_DB: chat
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - /docker/chatweb-postgres:/var/lib/postgresql/data
