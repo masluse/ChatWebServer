@@ -63,7 +63,7 @@ namespace ChatWebServer.DBContext
         public void InitializeDatabase()
         {
             string sqlScript = @"
-                CREATE TABLE IF NOT EXISTS 'Users' (
+                CREATE TABLE IF NOT EXISTS Users (
                     userID SERIAL PRIMARY KEY,
                     username VARCHAR(55) NOT NULL,
                     password VARCHAR(999) NOT NULL,
@@ -71,7 +71,7 @@ namespace ChatWebServer.DBContext
                     isActive BOOLEAN NOT NULL
                 );
 
-                CREATE TABLE IF NOT EXISTS 'Messages' (
+                CREATE TABLE IF NOT EXISTS Messages (
                     messageID SERIAL PRIMARY KEY,
                     value VARCHAR(999) NOT NULL,
                     FK_userID INT NOT NULL,
