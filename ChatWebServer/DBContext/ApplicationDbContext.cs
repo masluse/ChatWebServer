@@ -19,6 +19,7 @@ namespace ChatWebServer.DBContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            InitializeDatabase();
             modelBuilder.Entity<Message>()
                 .HasOne(m => m.User)
                 .WithMany()
@@ -31,7 +32,6 @@ namespace ChatWebServer.DBContext
         {
             try
             {
-                InitializeDatabase();
                 string connectionString = GetConnectionString();
 
                 optionsBuilder.UseNpgsql(connectionString);
