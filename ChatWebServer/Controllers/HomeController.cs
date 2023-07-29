@@ -56,11 +56,11 @@ namespace ChatWebServer.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveMessage(string message)
+        public IActionResult SaveMessage(string message, int userID)
         {
             if (string.IsNullOrEmpty(message)) return BadRequest("Message cannot be empty.");
 
-            var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = currentUser.UserID };
+            var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = userID };
 
             _context.Messages.Add(newMessage);
             _context.SaveChanges();
