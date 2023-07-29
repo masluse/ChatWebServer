@@ -78,10 +78,8 @@ namespace ChatWebServer.DBContext
                 ""timeStamp"" TIMESTAMP NOT NULL
             );
 
-            -- Add foreign key constraint
-            ALTER TABLE ""Messages""
-            ADD CONSTRAINT ""fk_user""
-            FOREIGN KEY (""FK_userID"") REFERENCES ""Users""(""userID"");
+            -- Check if the 'fk_user' constraint already exists
+            SELECT 1 FROM pg_constraint WHERE conname = 'fk_user' LIMIT 1;
         ";
 
             using (var connection = new NpgsqlConnection(GetConnectionString()))
@@ -93,12 +91,36 @@ namespace ChatWebServer.DBContext
                     command.ExecuteNonQuery();
                 }
 
+                // Check if the 'fk_user' constraint already exists
+                bool constraintExists;
+                using (var checkConstraintCommand = new NpgsqlCommand("SELECT 1 FROM pg_constraint WHERE conname = 'fk_user' LIMIT 1;", connection))
+                {
+                    constraintExists = checkConstraintCommand.ExecuteScalar() != null;
+                }
+
+                if (!constraintExists)
+                {
+                    // Add the 'fk_user' constraint if it doesn't exist
+                    sqlScript = @"
+                    ALTER TABLE ""Messages""
+                    ADD CONSTRAINT ""fk_user""
+                    FOREIGN KEY (""FK_userID"") REFERENCES ""Users""(""userID"");
+                ";
+
+                    using (var addConstraintCommand = new NpgsqlCommand(sqlScript, connection))
+                    {
+                        addConstraintCommand.ExecuteNonQuery();
+                    }
+                }
+
+                // Check if "Admin" and "User" users already exist
                 using (var command = new NpgsqlCommand("SELECT COUNT(*) FROM \"Users\" WHERE \"username\" = 'Admin' OR \"username\" = 'User';", connection))
                 {
                     int existingUsersCount = Convert.ToInt32(command.ExecuteScalar());
 
                     if (existingUsersCount == 0)
                     {
+                        // Insert "Admin" and "User" users if they don't exist
                         sqlScript = @"
                         INSERT INTO ""Users"" (""userID"", ""username"", ""password"", ""role"", ""isActive"") VALUES 
                         (1, 'Admin', '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918', 'ADMIN', true),
@@ -113,6 +135,7 @@ namespace ChatWebServer.DBContext
                 }
             }
         }
+
 
 
 
