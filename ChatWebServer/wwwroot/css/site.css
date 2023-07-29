@@ -135,3 +135,53 @@ body {
     padding: 10px;
     border-radius: 5px;
 }
+
+dialog {
+    background-color: #333333;
+    color: white;
+    border: 2px solid #2F4F4F;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 16px;
+}
+
+/* Styling for the user-box and user-info */
+.user-box {
+    background-color: #2F4F4F;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    .user-box p {
+        margin: 0;
+    }
+
+    .user-box:hover {
+        background-color: #27403E;
+    }
+
+.user-info {
+    background-color: #27403E;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Button styles */
+button {
+    background-color: #27403E;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+    button:hover {
+        background-color: #2F4F4F;
+    }
