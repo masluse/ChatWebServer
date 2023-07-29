@@ -26,14 +26,13 @@ namespace ChatWebServer.DBContext
                 .HasForeignKey(m => m.FK_userID)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            InitializeDatabase();
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             try
             {
+                InitializeDatabase();
                 string connectionString = GetConnectionString();
 
                 optionsBuilder.UseNpgsql(connectionString);
