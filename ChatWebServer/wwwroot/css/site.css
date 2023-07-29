@@ -116,3 +116,22 @@ body {
     }
 
 }
+
+.user-box {
+    background-color: #2F4F4F;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+    .user-box p {
+        margin: 0;
+    }
+
+.user-info {
+    background-color: #27403E;
+    padding: 10px;
+    border-radius: 5px;
+}

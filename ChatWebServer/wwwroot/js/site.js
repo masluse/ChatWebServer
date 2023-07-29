@@ -1,14 +1,9 @@
-﻿const showButton = document.getElementById("openAdminModalBtn")
-const favDialog = document.getElementById("manageUsersDialog")
-
-showButton.addEventListener("click", () => {
-    favDialog.showModal();
-});
-
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
     var protocol = location.protocol === "https:" ? "wss:" : "ws:";
     var wsUri = protocol + "//" + window.location.host;
     var socket = new WebSocket(wsUri);
+    const showButton = document.getElementById("openAdminModalBtn")
+    const favDialog = document.getElementById("manageUsersDialog")
 
     const d = new Date();
     let time = d.getTime();
@@ -20,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
     socket.onclose = function (e) {
         console.log("socket closed", e);
     };
+
+    showButton.addEventListener("click", () => {
+        favDialog.showModal();
+    });
 
     socket.onmessage = function (e) {
         console.log(e);
@@ -63,5 +62,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => {
                 console.error("Error saving message: ", error)
             })
+    }
+
+    function expandUser(userBox) {
+        const userInfo = userBox.querySelector(".user-info");
+        userInfo.style.display = userInfo.style.display === "none" ? "block" : "none";
     }
 });

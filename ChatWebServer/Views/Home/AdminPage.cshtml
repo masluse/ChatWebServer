@@ -14,7 +14,20 @@
     </div>
     <!-- Dialog for CRUD operations on User table-->
     <dialog id="manageUsersDialog">
-        <p>Greetings, one and all!</p>
+        <!-- Greetings, one and all! -->
+        <div id="userList">
+            @foreach (var user in Model)
+            {
+                <div class="user-box" onclick="expandUser(this)">
+                    <p>@user.Username</p>
+                    <div class="user-info" style="display: none;">
+                        <p>ID: @user.UserID</p>
+                        <p>Role: @user.Role</p>
+                        <p>Active: @user.IsActive</p>
+                    </div>
+                </div>
+            }
+        </div>
         <form method="dialog">
             <button>OK</button>
         </form>

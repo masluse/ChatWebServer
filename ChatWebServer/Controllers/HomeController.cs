@@ -1,7 +1,9 @@
 ﻿using ChatWebServer.DBContext;
 using ChatWebServer.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ChatWebServer.Controllers
 {
@@ -9,8 +11,6 @@ namespace ChatWebServer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
-
-        private static User currentUser; 
 
         public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
@@ -27,12 +27,33 @@ namespace ChatWebServer.Controllers
         [HttpPost]
         public IActionResult Index(string username, string password)
         {
-            var loginUser = new User { Password = PasswordHasher.HashPassword(password), Username = username, IsActive = true, UserID = 0 };
-            if (!UserIsAuthenticated(loginUser)) return View("AuthenticateUser");
-            else if (currentUser.Role == "ADMIN") return View("AdminPage", username);
-            else return View("UserPage", username);
+            var hashedPassword = PasswordHasher.HashPassword(password);
+            var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
+
+            if (user == null)
+            {
+                return View("AuthenticateUser");
+            }
+            else if (user.Role == "ADMIN")
+            {
+                return RedirectToAction("AdminPage", new { username = user.Username });
+            }
+            else
+            {
+                return RedirectToAction("UserPage", new { username = user.Username });
+            }
         }
 
+        public IActionResult AdminPage(string username)
+        {
+            var userList = _context.Users.ToList();
+            return View(userList);
+        }
+
+        public IActionResult UserPage(string username)
+        {
+            return View();
+        }
 
         [HttpPost]
         public IActionResult SaveMessage(string message)
@@ -44,7 +65,7 @@ namespace ChatWebServer.Controllers
             _context.Messages.Add(newMessage);
             _context.SaveChanges();
 
-            return Ok("Message saved succesfully.");
+            return Ok("Message saved successfully.");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -52,14 +73,5 @@ namespace ChatWebServer.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        private bool UserIsAuthenticated(User userToAuthenticate)
-        {
-            currentUser = _context.Users.FirstOrDefault(u => u.Username == userToAuthenticate.Username);
-
-            if (currentUser == null) return false;
-            else return currentUser.Password == userToAuthenticate.Password;
-        }
-
     }
 }
