@@ -63,9 +63,10 @@
                 console.error("Error saving message: ", error)
             })
     }
-
-    function expandUser(userBox) {
-        const userInfo = userBox.querySelector(".user-info");
-        userInfo.style.display = userInfo.style.display === "none" ? "block" : "none";
-    }
 });
+
+
+function expandUser(userBox) {
+    const userInfo = userBox.querySelector(".user-info");
+    userInfo.style.display = userInfo.style.display === "none" ? "block" : "none";
+}
