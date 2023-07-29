@@ -5,18 +5,12 @@
 
 <div class="text-center">
     <button type="button" class="btn" id="openAdminModalBtn">Do Admin Stuff</button>
-    <div class="chat-container">
-        <form action="@Url.Action("Index")" method="post" class="mt-3">
-            <div class="form-group">
-                <label for="username" class="text-white">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter your username" name="username">
-            </div>
-            <div class="form-group">
-                <label for="password" class="text-white">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Enter</button>
-        </form>
+    <div class="chat-container" id="msgs">
+        <!-- Messages will be dynamically added here -->
+    </div>
+
+    <div id="inputBox">
+        <input type="text" id="messageField" placeholder="Type a message and press Enter" />
     </div>
     <!-- Dialog for CRUD operations on User table-->
     <dialog id="manageUsersDialog">
@@ -26,3 +20,8 @@
         </form>
     </dialog>
 </div>
+
+@* Escape the username and store it in a JavaScript variable *@
+<script>
+    var userName = @Json.Serialize(Model);
+</script>
