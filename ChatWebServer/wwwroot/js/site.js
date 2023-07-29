@@ -1,4 +1,11 @@
-﻿document.addEventListener("DOMContentLoaded", function () {
+﻿const showButton = document.getElementById("openAdminModalBtn")
+const favDialog = document.getElementById("manageUsersDialog")
+
+showButton.addEventListener("click", () => {
+    favDialog.showModal();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
     var protocol = location.protocol === "https:" ? "wss:" : "ws:";
     var wsUri = protocol + "//" + window.location.host;
     var socket = new WebSocket(wsUri);

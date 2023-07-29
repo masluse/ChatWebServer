@@ -1,9 +1,7 @@
 ﻿using ChatWebServer.DBContext;
 using ChatWebServer.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Security.Cryptography;
 
 namespace ChatWebServer.Controllers
 {
@@ -61,5 +59,6 @@ namespace ChatWebServer.Controllers
             if (currentUser == null) return false;
             else return currentUser.Password == userToAuthenticate.Password;
         }
+
     }
 }

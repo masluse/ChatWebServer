@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Desktop\ChatWebServer\ChatWebServer
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Desktop/ChatWebServer/ChatWebServer/Views/Home/AdminPage.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBZG1pblBhZ2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Desktop/ChatWebServer/ChatWebServer/Views/Home/AuthenticateUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxBdXRoZW50aWNhdGVVc2VyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

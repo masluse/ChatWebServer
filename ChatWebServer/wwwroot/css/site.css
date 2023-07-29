@@ -89,3 +89,30 @@ body {
     background-color: #27403E;
     box-shadow: none;
 }
+
+#openAdminModalBtn {
+    background-color: #27403E;
+    box-shadow: none;
+    color: white; 
+    margin: 1em;
+    right: 0;
+    position: absolute; 
+}
+
+@media (max-width: 767px) {
+    #openAdminModalBtn {
+        background-color: #27403E;
+        box-shadow: none;
+        color: white;
+        margin-right: 20%;
+        display: block; 
+        padding-left: 5em;
+        padding-right: 5em;
+    }
+
+    .text-center {
+        position: relative; 
+        height: 100vh;
+    }
+
+}
