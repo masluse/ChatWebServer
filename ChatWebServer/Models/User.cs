@@ -13,10 +13,10 @@ namespace ChatWebServer.Models
         [Column("password")]
         public string Password { get; set; }
 
+        [Column("role")]
+        public string Role { get; set; }
+
         [Column("isActive")]
-        public bool IsActive
-        {
-            get; set;
-        }
+        public bool IsActive { get; set; }
     }
 }
