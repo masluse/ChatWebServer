@@ -18,39 +18,23 @@
 
     socket.onmessage = function (e) {
         console.log(e);
-        var messageData = JSON.parse(e.data);
-        var username = messageData.username;
-        var role = messageData.role;
-        var message = messageData.message;
-        var timestamp = messageData.timestamp;
+        var receivedData = e.data;
+        var separatorIndex = receivedData.indexOf(":");
+        var receivedUsername = receivedData.substring(0, separatorIndex);
+        var receivedMessage = receivedData.substring(separatorIndex + 1);
 
         var messageDiv = document.createElement("div");
         messageDiv.className = "message";
 
-        // Create a span element for the username
-        var nameElement = document.createElement("span");
-        nameElement.className = "username";
-
-        // Set the class to "admin" if the user has the "ADMIN" role
-        if (role === "ADMIN") {
-            nameElement.classList.add("admin");
+        // Add a specific class for the message based on the user's role
+        if (receivedUsername.includes("[ADMIN]")) {
+            messageDiv.classList.add("admin-message");
         }
 
-        nameElement.textContent = username;
-
-        var timeElement = document.createElement("span");
-        timeElement.className = "timestamp";
-        timeElement.textContent = formatTimestamp(timestamp);
-
-        var contentElement = document.createElement("p");
-        contentElement.textContent = message;
-
-        messageDiv.appendChild(nameElement);
-        messageDiv.appendChild(timeElement);
-        messageDiv.appendChild(contentElement);
-
+        messageDiv.textContent = receivedUsername + ": " + receivedMessage;
         document.getElementById("msgs").appendChild(messageDiv);
     };
+
 
 
     socket.onerror = function (e) {
