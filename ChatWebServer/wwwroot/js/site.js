@@ -28,7 +28,9 @@
         var usernameSpan = document.createElement("span");
         usernameSpan.textContent = username + ": ";
 
-        if (username.includes("ADMIN")) {
+        // Get the role of the user from userListData
+        var role = getUserRole(username);
+        if (role === "ADMIN") {
             usernameSpan.classList.add("admin");
         }
 
@@ -40,9 +42,6 @@
 
         document.getElementById("msgs").appendChild(messageDiv);
     };
-
-
-
 
 
     socket.onerror = function (e) {
@@ -135,27 +134,31 @@
 
 
     logoutBtn.addEventListener("click", function () {
-        // Send a POST request to the Logout action
         fetch("/Home/Logout", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json" // Set the content type if required
+                "Content-Type": "application/json" 
             }
         })
             .then(response => {
                 if (!response.ok) {
                     throw new Error("An error occurred while logging out.");
                 }
-                // If the logout was successful, redirect the user to the login page
                 window.location.href = "/Home/Index";
                 showSuccessToast("Loged out")
             })
             .catch(error => {
-                // Handle any errors if needed
                 console.error(error.message);
                 showErrorToast("An error occurred while logging out.");
             });
     });
+
+
+    function getUserRole(username) {
+        var user = userListData.find(user => user.Username === username);
+
+        return user ? user.Role : "";
+    }
 
     // Toasts 
 
