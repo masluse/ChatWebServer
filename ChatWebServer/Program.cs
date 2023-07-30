@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("https://chat-test-chatweb.mregli.com")
                .AllowAnyHeader()
                .AllowAnyMethod()
                .AllowCredentials();
