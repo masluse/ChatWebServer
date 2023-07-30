@@ -145,6 +145,7 @@
             .then(response => response.json())
             .then(data => {
                 location.reload();
+                openAddUserDialog(); 
             })
             .catch(error => {
                 console.error("Error updating user:", error);
@@ -164,6 +165,7 @@
                 .then(response => response.json())
                 .then(data => {
                     location.reload();
+                    openAddUserDialog();
                 })
                 .catch(error => {
                     console.error("Error deleting user:", error);
@@ -197,6 +199,7 @@
             .then(response => response.json())
             .then(data => {
                 location.reload();
+                openAddUserDialog();
             })
             .catch(error => {
                 console.error("Error adding user:", error);
