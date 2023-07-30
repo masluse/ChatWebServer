@@ -151,6 +151,8 @@ form {
     margin-bottom: 10px;
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
+    padding-right: 1em;
+    padding-left: 1em;
 }
 
 .user-box p {
