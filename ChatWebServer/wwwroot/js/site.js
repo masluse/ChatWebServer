@@ -81,7 +81,7 @@
                 data.reverse().forEach(message => {
                     var messageDiv = document.createElement("div");
                     messageDiv.className = "message";
-                    messageDiv.textContent = `${message.Username}: ${message.Message} (${message.Timestamp})`;
+                    messageDiv.textContent = `${message.Username}: ${message.Message}`;
                     document.getElementById("msgs").appendChild(messageDiv);
                 });
             })
@@ -89,7 +89,5 @@
                 console.error("Error fetching last messages: ", error);
             });
     }
-
-
 
 });
