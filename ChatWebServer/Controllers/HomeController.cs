@@ -208,6 +208,25 @@ namespace ChatWebServer.Controllers
             return Ok("Message saved successfully.");
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetLastMessages(int count)
+        {
+            var messages = _context.Messages
+                .Include(m => m.User)
+                .OrderByDescending(m => m.Timestamp)
+                .Take(count)
+                .Select(m => new
+                {
+                    Username = m.User.Username,
+                    Message = m.Value,
+                    Timestamp = m.Timestamp
+                })
+                .ToList();
+
+            return Json(messages);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

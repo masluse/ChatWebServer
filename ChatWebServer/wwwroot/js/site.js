@@ -8,6 +8,7 @@
 
     socket.onopen = function (e) {
         console.log("socket opened", e);
+        fetchLastMessages(10);
     };
 
     socket.onclose = function (e) {
@@ -64,4 +65,33 @@
                 console.error("Error saving message: ", error)
             })
     }
+
+    function fetchLastMessages(count) {
+        var formData = new FormData();
+        formData.append("count", count);
+
+        fetch("https://chat-test-chatweb.mregli.com/Home/GetLastMessages", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: formData,
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Display the last messages in the chat window
+                data.reverse().forEach(message => {
+                    var messageDiv = document.createElement("div");
+                    messageDiv.className = "message";
+                    messageDiv.textContent = `${message.Username}: ${message.Message}`;
+                    document.getElementById("msgs").appendChild(messageDiv);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching last messages: ", error);
+            });
+    }
+
+
 });
