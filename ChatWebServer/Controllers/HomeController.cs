@@ -186,17 +186,14 @@ namespace ChatWebServer.Controllers
                 return BadRequest("Message cannot be empty.");
             }
 
-            _logger.LogWarning("Identity: {}", User.Identity.Name);
-
-            // Get the ID of the current authenticated user
-            var userIDClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
-            if (userIDClaim == null || !int.TryParse(userIDClaim.Value, out int userID))
+            var currentUser = _context.Users.FirstOrDefault(u => u.Username == User.Identity.Name);
+            if (currentUser == null)
             {
-                _logger.LogWarning("User ID {UserID} not found or invalid.", userIDClaim);
-                return BadRequest("User ID not found or invalid.");
+                _logger.LogWarning("User with username {Username} not found.", User.Identity.Name);
+                return NotFound("User with username " + User.Identity.Name + " not found");
             }
 
-            var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = userID };
+            var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = currentUser.UserID };
 
             _context.Messages.Add(newMessage);
             _context.SaveChanges();
