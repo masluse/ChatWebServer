@@ -45,6 +45,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Use CORS policy
+app.UseCors("AllowSpecificOrigin");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
