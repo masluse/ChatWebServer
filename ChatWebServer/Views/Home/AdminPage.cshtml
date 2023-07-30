@@ -131,8 +131,12 @@
     // Delete User
     function deleteUser(userID) {
         if (confirm("Are you sure you want to delete this user?")) {
-            fetch(`/Home/DeleteUser/${userID}`, {
+            const formData = new FormData();
+            formData.append("userID", userID);
+
+            fetch(`/Home/DeleteUser`, {
                 method: "POST",
+                body: formData,
             })
                 .then(response => response.json())
                 .then(data => {
