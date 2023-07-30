@@ -147,6 +147,23 @@ dialog {
     width: 60%; /* Set a custom width for the dialog */
 }
 
+.dialog-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+    .dialog-container .user-box {
+        flex: 0 0 24%;
+        margin-bottom: 20px;
+    }
+
+@media (max-width: 767px) {
+    .dialog-container .user-box {
+        flex: 0 0 100%;
+    }
+}
+
 .btn-update {
     background-color: #337ab7;
 }
