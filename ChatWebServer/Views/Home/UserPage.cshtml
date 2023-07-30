@@ -15,5 +15,5 @@
 
 @* Escape the username and store it in a JavaScript variable *@
 <script>
-    var userName = @Json.Serialize(Model);
+    var userName = @Json.Serialize(Context.User.Identity.Name);
 </script>

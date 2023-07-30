@@ -4,6 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Data.Entity;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ChatWebServer.Controllers
 {
@@ -24,8 +29,9 @@ namespace ChatWebServer.Controllers
             return View("AuthenticateUser");
         }
 
+
         [HttpPost]
-        public IActionResult Index(string username, string password)
+        public async Task<IActionResult> Index(string username, string password)
         {
             var hashedPassword = PasswordHasher.HashPassword(password);
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
@@ -34,23 +40,40 @@ namespace ChatWebServer.Controllers
             {
                 return View("AuthenticateUser");
             }
-            else if (user.Role == "ADMIN")
+
+            // Authentication successful. Sign in the user with cookies
+            var claims = new List<Claim>
             {
-                return RedirectToAction("AdminPage", new { username = user.Username });
+                new Claim(ClaimTypes.Name, user.Username),
+                new Claim(ClaimTypes.Role, user.Role)
+            };
+
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
+            // Redirect to the appropriate page based on the user's role
+            if (user.Role == "ADMIN")
+            {
+                return RedirectToAction("AdminPage");
             }
             else
             {
-                return RedirectToAction("UserPage", new { username = user.Username });
+                return RedirectToAction("UserPage");
             }
         }
 
-        public IActionResult AdminPage(string username)
+
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult AdminPage()
         {
             var userList = _context.Users.ToList();
             return View(userList);
         }
 
-        public IActionResult UserPage(string username)
+        [Authorize]
+        public IActionResult UserPage()
         {
             return View();
         }
