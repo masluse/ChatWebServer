@@ -36,4 +36,16 @@
 @* Store the authenticated username in a JavaScript variable *@
 <script>
     var userName = @Json.Serialize(Context.User.Identity.Name);
+
+    const showButton = document.getElementById("openAdminModalBtn")
+    const favDialog = document.getElementById("manageUsersDialog")
+
+    showButton.addEventListener("click", () => {
+        favDialog.showModal();
+    });
+
+    function expandUser(userBox) {
+        const userInfo = userBox.querySelector(".user-info");
+        userInfo.style.display = userInfo.style.display === "none" ? "block" : "none";
+    }
 </script>

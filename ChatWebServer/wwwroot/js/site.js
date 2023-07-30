@@ -2,8 +2,6 @@
     var protocol = location.protocol === "https:" ? "wss:" : "ws:";
     var wsUri = protocol + "//" + window.location.host;
     var socket = new WebSocket(wsUri);
-    const showButton = document.getElementById("openAdminModalBtn")
-    const favDialog = document.getElementById("manageUsersDialog")
 
     const d = new Date();
     let time = d.getTime();
@@ -14,11 +12,7 @@
 
     socket.onclose = function (e) {
         console.log("socket closed", e);
-    };
-
-    showButton.addEventListener("click", () => {
-        favDialog.showModal();
-    });
+    }
 
     socket.onmessage = function (e) {
         console.log(e);
@@ -64,9 +58,3 @@
             })
     }
 });
-
-
-function expandUser(userBox) {
-    const userInfo = userBox.querySelector(".user-info");
-    userInfo.style.display = userInfo.style.display === "none" ? "block" : "none";
-}
