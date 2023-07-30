@@ -1,6 +1,11 @@
 using ChatWebServer.DBContext;
 using ChatWebServer.Websockets;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,10 +44,11 @@ app.UseAuthorization();
 app.UseWebSockets();
 app.UseMiddleware<ChatWebSocketMiddleware>();
 
-app.UseCors(x => x
+// Add CORS policy
+app.UseCors(policy => policy
     .AllowAnyMethod()
     .AllowAnyHeader()
-    .SetIsOriginAllowed(origin => true) // allow any origin 
+    .SetIsOriginAllowed(_ => true) // Allow any origin
     .AllowCredentials());
 
 app.MapControllerRoute(
