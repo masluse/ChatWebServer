@@ -38,7 +38,7 @@ namespace ChatWebServer.Controllers
             var hashedPassword = PasswordHasher.HashPassword(password);
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
 
-            if (user == null)
+            if (user == null || !user.IsActive)
             {
                 return View("AuthenticateUser");
             }
