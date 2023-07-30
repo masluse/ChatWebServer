@@ -13,7 +13,8 @@
     <div id="inputBox">
         <input type="text" id="messageField" placeholder="Type a message and press Enter" />
     </div>
-    <!-- Dialog for CRUD operations on User table-->
+
+    <!-- Dialog for CRUD operations on User table -->
     <dialog id="manageUsersDialog">
         <div id="userList">
             @foreach (var user in Model)
@@ -21,25 +22,57 @@
                 <div class="user-box" onclick="expandUser(this)">
                     <p>@user.Username</p>
                     <div class="user-info" style="display: none;">
-                        <p data-info="userId">ID: @user.UserID</p>
+                        <p>ID: @user.UserID</p>
                         <p>Role: @user.Role</p>
                         <p>Active: @user.IsActive</p>
+                        <button class="btn btn-primary" onclick="openUpdateUserDialog('@user.UserID', '@user.Username', '@user.Role')">Update</button>
                     </div>
                 </div>
             }
         </div>
-        <form method="dialog" id="userForm">
-            <div id="userFormContainer">
-                <!-- User form will be loaded here -->
+        <button class="btn btn-primary" onclick="openAddUserDialog()">Add User</button>
+        <form method="dialog" id="addUserForm" style="display:none">
+            <h4>Add User</h4>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter username">
             </div>
-            <button type="button" id="addUserBtn" class="btn btn-primary">Add User</button>
-            <button type="button" id="updateUserBtn" class="btn btn-primary">Update User</button>
-            <button type="button" id="closeDialogBtn" class="btn btn-secondary">Close</button>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-control" id="role">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addUser()">Save</button>
+            <button type="button" class="btn btn-secondary" onclick="closeAddUserDialog()">Cancel</button>
+        </form>
+        <form method="dialog" id="updateUserForm" style="display:none">
+            <h4>Update User</h4>
+            <input type="hidden" id="updateUserID">
+            <div class="form-group">
+                <label for="updateUsername">Username</label>
+                <input type="text" class="form-control" id="updateUsername" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="updateRole">Role</label>
+                <select class="form-control" id="updateRole">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="updateUser()">Update</button>
+            <button type="button" class="btn btn-danger" onclick="deleteUser()">Delete</button>
+            <button type="button" class="btn btn-secondary" onclick="closeUpdateUserDialog()">Cancel</button>
         </form>
     </dialog>
 </div>
 
-<!-- Store the authenticated username in a JavaScript variable -->
+
 <script>
     var userName = @Json.Serialize(Context.User.Identity.Name);
 
@@ -54,76 +87,93 @@
         const userInfo = userBox.querySelector(".user-info");
         userInfo.style.display = userInfo.style.display === "none" ? "block" : "none";
     }
-</script>
 
-<script>
+    function openAddUserDialog() {
+        document.getElementById("addUserForm").style.display = "block";
+    }
 
-    const userFormContainer = document.getElementById("userFormContainer");
+    function closeAddUserDialog() {
+        document.getElementById("addUserForm").style.display = "none";
+    }
 
-    loadUserList();
+    function addUser() {
+        const username = document.getElementById("username").value;
+        const password = document.getElementById("password").value;
+        const role = document.getElementById("role").value;
 
-    function loadUserList() {
-        fetch("/Home/AdminPage")
-            .then(response => response.text())
+        // Perform an AJAX request to add the user in the backend
+        fetch("/Admin/AddUser", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                Username: username,
+                Password: password,
+                Role: role,
+            }),
+        })
+            .then(response => response.json())
             .then(data => {
-                const parser = new DOMParser();
-                const html = parser.parseFromString(data, "text/html");
-                const userListContainer = document.getElementById("userList");
-                userListContainer.innerHTML = html.getElementById("userList").innerHTML;
+                // Refresh the page after adding the user
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error("Error adding user:", error);
             });
     }
 
-    function loadUserForm(userId = 0) {
-        fetch(`/Home/GetUser?userId=${userId}`)
-            .then(response => response.text())
+    function openUpdateUserDialog(userID, username, role) {
+        document.getElementById("updateUserID").value = userID;
+        document.getElementById("updateUsername").value = username;
+        document.getElementById("updateRole").value = role;
+        document.getElementById("updateUserForm").style.display = "block";
+    }
+
+    function closeUpdateUserDialog() {
+        document.getElementById("updateUserForm").style.display = "none";
+    }
+
+    function updateUser() {
+        const userID = document.getElementById("updateUserID").value;
+        const username = document.getElementById("updateUsername").value;
+        const role = document.getElementById("updateRole").value;
+
+        // Perform an AJAX request to update the user in the backend
+        fetch(`/Admin/UpdateUser/${userID}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                Username: username,
+                Role: role,
+            }),
+        })
+            .then(response => response.json())
             .then(data => {
-                userFormContainer.innerHTML = data;
+                // Refresh the page after updating the user
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error("Error updating user:", error);
             });
     }
 
-    document.getElementById("addUserBtn").addEventListener("click", () => {
-        loadUserForm();
-    });
+    function deleteUser() {
+        const userID = document.getElementById("updateUserID").value;
 
-    document.getElementById("updateUserBtn").addEventListener("click", () => {
-        const selectedUserBox = document.querySelector(".user-box.selected");
-        if (!selectedUserBox) {
-            alert("Please select a user to update.");
-            return;
-        }
-
-        const userId = selectedUserBox.querySelector("p[data-info='userId']").innerText.split(":")[1].trim();
-        loadUserForm(userId);
-    });
-
-    document.getElementById("closeDialogBtn").addEventListener("click", () => {
-        const dialog = document.getElementById("manageUsersDialog");
-        dialog.close();
-
-        userFormContainer.innerHTML = "";
-    });
-
-</script>
-
-<!-- User form template -->
-<script type="text/template" id="userFormTemplate">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="Username" required />
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="Password" required />
-    </div>
-    <div class="form-group">
-        <label for="role">Role</label>
-        <select class="form-control" id="role" name="Role">
-            <option value="ADMIN">ADMIN</option>
-            <option value="USER">USER</option>
-        </select>
-    </div>
-    <div class="form-group form-check">
-        <input type="checkbox" class="form-check-input" id="isActive" name="IsActive" />
-        <label class="form-check-label" for="isActive">Active</label>
-    </div>
+        // Perform an AJAX request to delete the user in the backend
+        fetch(`/Admin/DeleteUser/${userID}`, {
+            method: "POST",
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Refresh the page after deleting the user
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error("Error deleting user:", error);
+            });
+    }
 </script>
