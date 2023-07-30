@@ -18,22 +18,28 @@
 
     socket.onmessage = function (e) {
         console.log(e);
-        var receivedData = e.data;
-        var separatorIndex = receivedData.indexOf(":");
-        var receivedUsername = receivedData.substring(0, separatorIndex);
-        var receivedMessage = receivedData.substring(separatorIndex + 1);
+        var messageData = e.data.split(":"); 
+        var username = messageData[0].trim();
+        var message = messageData.slice(1).join(":").trim();
 
         var messageDiv = document.createElement("div");
         messageDiv.className = "message";
 
-        // Add a specific class for the message based on the user's role
-        if (receivedUsername.includes("[ADMIN]")) {
-            messageDiv.classList.add("admin-message");
+        var usernameSpan = document.createElement("span");
+        usernameSpan.textContent = username + ": ";
+        if (username.includes("ADMIN")) {
+            usernameSpan.style.color = "red"; 
         }
 
-        messageDiv.textContent = receivedUsername + ": " + receivedMessage;
+        var messageSpan = document.createElement("span");
+        messageSpan.textContent = message;
+
+        messageDiv.appendChild(usernameSpan);
+        messageDiv.appendChild(messageSpan);
+
         document.getElementById("msgs").appendChild(messageDiv);
     };
+
 
 
 
@@ -159,7 +165,7 @@
             duration: 3000,
             close: true,
             gravity: "top",
-            position: "right",
+            position: "center",
         }).showToast();
     }
 
@@ -171,7 +177,7 @@
             duration: 3000,
             close: true,
             gravity: "top",
-            position: "right",
+            position: "center",
         }).showToast();
     }
 
