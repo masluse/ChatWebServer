@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace ChatWebServer.Controllers
 {
@@ -148,6 +149,7 @@ namespace ChatWebServer.Controllers
 
 
         [HttpPost]
+        [EnableCors("AllowSpecificOrigin")]
         public IActionResult SaveMessage(string message)
         {
             Console.WriteLine("Message: " + message);
