@@ -144,7 +144,18 @@ dialog {
     padding: 20px; /* Increase padding to add more space around content */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     font-size: 16px;
-    width: 400px; /* Set a custom width for the dialog */
+    width: 60%; /* Set a custom width for the dialog */
+}
+
+.btn-update {
+    background-color: #337ab7;
+}
+
+/* Arrange user list in rows of 4 */
+#userList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 /* Styling for the user-box and user-info */

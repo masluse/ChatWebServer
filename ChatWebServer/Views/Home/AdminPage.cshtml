@@ -25,7 +25,7 @@
                         <p>ID: @user.UserID</p>
                         <p>Role: @user.Role</p>
                         <p>Active: @user.IsActive</p>
-                        <button class="btn btn-primary" onclick="openUpdateUserDialog('@user.UserID', '@user.Username', '@user.Role', '@user.IsActive')">Update</button>
+                        <button class="btn btn-primary btn-update" onclick="openUpdateUserDialog('@user.UserID', '@user.Username', '@user.Role', @user.IsActive)">Update</button>
                     </div>
                 </div>
             }
