@@ -213,6 +213,7 @@ namespace ChatWebServer.Controllers
                 .Select(m => new
                 {
                     Username = m.User.Username,
+                    Role = m.User.Role,
                     Message = m.Value,
                     Timestamp = DateTime.SpecifyKind(m.Timestamp, DateTimeKind.Utc) // Specify the DateTimeKind as Utc
                 })

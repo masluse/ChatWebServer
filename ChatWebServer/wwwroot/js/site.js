@@ -18,11 +18,34 @@
 
     socket.onmessage = function (e) {
         console.log(e);
+        var messageData = JSON.parse(e.data);
+        var username = messageData.username;
+        var role = messageData.role;
+        var message = messageData.message;
+        var timestamp = messageData.timestamp;
+
         var messageDiv = document.createElement("div");
-        messageDiv.className = "message"; 
-        messageDiv.textContent = e.data;
+        messageDiv.className = "message";
+
+        // Apply red color to messages from users with the "ADMIN" role
+        var nameElement = document.createElement("span");
+        nameElement.className = role === "ADMIN" ? "username admin" : "username";
+        nameElement.textContent = username;
+
+        var timeElement = document.createElement("span");
+        timeElement.className = "timestamp";
+        timeElement.textContent = formatTimestamp(timestamp);
+
+        var contentElement = document.createElement("p");
+        contentElement.textContent = message;
+
+        messageDiv.appendChild(nameElement);
+        messageDiv.appendChild(timeElement);
+        messageDiv.appendChild(contentElement);
+
         document.getElementById("msgs").appendChild(messageDiv);
     };
+
 
     socket.onerror = function (e) {
         console.error(e.data);

@@ -246,3 +246,8 @@ button:hover {
 .alert {
     background-color: orangered;
 }
+
+.username.admin {
+    color: red;
+    font-weight: bold;
+}
