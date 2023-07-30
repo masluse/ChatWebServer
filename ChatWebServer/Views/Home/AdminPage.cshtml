@@ -140,19 +140,16 @@
 
         fetch("/Home/UpdateUser", {
             method: "POST",
-            body: formData,
+            body: formData, 
         })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    showSuccessToast(data.message);
-                } else {
-                    showErrorToast(data.message);
-                }
+                showSuccessToast("User updated successfully.");
+                location.reload();
             })
             .catch(error => {
                 console.error("Error updating user:", error);
-                showErrorToast("Error updating user.");
+                showErrorToast("Error updating user");
             });
     }
 
@@ -167,17 +164,14 @@
                 body: formData,
             })
                 .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        showSuccessToast(data.message);
-                    } else {
-                        showErrorToast(data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error("Error deleting user:", error);
-                    showErrorToast("Error deleting user.");
-                });
+            .then(data => {
+                showSuccessToast("User deleted successfully.");
+                location.reload();
+            })
+            .catch(error => {
+                console.error("Error deleting user:", error);
+                showErrorToast("Error deleting user.");
+            });
         }
     }
 
@@ -206,11 +200,8 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    showSuccessToast(data.message);
-                } else {
-                    showErrorToast(data.message);
-                }
+                showSuccessToast("User added successfully.");
+                location.reload();
             })
             .catch(error => {
                 console.error("Error adding user:", error);
@@ -243,73 +234,6 @@
             position: "right", 
         }).showToast();
     }
-
-    function createUserElement(user) {
-        const userBox = document.createElement("div");
-        userBox.className = "user-box";
-        userBox.onclick = function () {
-            expandUser(userBox);
-        };
-
-        const usernameParagraph = document.createElement("p");
-        usernameParagraph.textContent = user.Username;
-        userBox.appendChild(usernameParagraph);
-
-        const userInfoDiv = document.createElement("div");
-        userInfoDiv.className = "user-info";
-        userInfoDiv.style.display = "none";
-
-        const idParagraph = document.createElement("p");
-        idParagraph.textContent = "ID: " + user.UserID;
-        userInfoDiv.appendChild(idParagraph);
-
-        const roleParagraph = document.createElement("p");
-        roleParagraph.textContent = "Role: " + user.Role;
-        userInfoDiv.appendChild(roleParagraph);
-
-        const isActiveParagraph = document.createElement("p");
-        isActiveParagraph.textContent = "Active: " + user.IsActive;
-        userInfoDiv.appendChild(isActiveParagraph);
-
-        const updateButton = document.createElement("button");
-        updateButton.className = "btn btn-primary btn-update";
-        updateButton.textContent = "Update";
-        updateButton.onclick = function () {
-            openUpdateUserDialog(user.UserID, user.Username, user.Role, user.IsActive);
-        };
-        userInfoDiv.appendChild(updateButton);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.className = "btn btn-danger btn-delete";
-        deleteButton.textContent = "Delete";
-        deleteButton.onclick = function () {
-            deleteUser(user.UserID);
-        };
-        userInfoDiv.appendChild(deleteButton);
-
-        userBox.appendChild(userInfoDiv);
-
-        return userBox;
-    }
-
-    // Load users on page load:
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch("/Home/GetUsers")
-            .then(response => response.json())
-            .then(users => {
-                // Populate the user list with the received data
-                const userListDiv = document.getElementById("userList");
-                userListDiv.innerHTML = ""; // Clear the existing content
-
-                users.forEach(user => {
-                    const userBox = createUserElement(user);
-                    userListDiv.appendChild(userBox);
-                });
-            })
-            .catch(error => {
-                console.error("Error fetching users:", error);
-            });
-    });
 
 </script>
 
