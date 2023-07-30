@@ -200,7 +200,7 @@
         })
             .then(response => response.json())
             .then(data => {
-                openAddUserDialog();
+                location.reload();
                 showSuccessToast("User added successfully.");
             })
             .catch(error => {
