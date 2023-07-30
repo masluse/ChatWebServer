@@ -187,7 +187,7 @@ namespace ChatWebServer.Controllers
             var newMessage = new Message
             {
                 Value = message,
-                Timestamp = DateTimeOffset.UtcNow, // Set the DateTimeOffset with DateTimeKind.Utc
+                Timestamp = DateTime.UtcNow, 
                 FK_userID = currentUser.UserID
             };
 
