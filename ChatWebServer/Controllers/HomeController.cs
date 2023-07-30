@@ -150,6 +150,7 @@ namespace ChatWebServer.Controllers
         [HttpPost]
         public IActionResult SaveMessage(string message)
         {
+            Console.WriteLine("Message: " + message);
             if (string.IsNullOrEmpty(message))
                 return BadRequest("Message cannot be empty.");
 
