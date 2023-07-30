@@ -218,7 +218,7 @@ namespace ChatWebServer.Controllers
             return Json(messages);
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public async Task<IActionResult> Logout()
         {
