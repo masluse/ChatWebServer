@@ -137,13 +137,12 @@ form {
     background-color: #337ab7;
 }
 
-/* Arrange user list in rows of 4 */
 #userList {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
+/* Styling for the user-box and user-info */
 .user-box {
     background-color: #2F4F4F;
     color: white;
