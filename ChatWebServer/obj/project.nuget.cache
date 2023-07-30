@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "Ul2aUKaY7FrHkA4/JL2rMlyObcLBaXvbJQwnPKbXsLA616BkE8OONHy7TdM6MNR2kB62A4kUFy/v0ZyMGi7ZRQ==",
-  "success": false,
+  "dgSpecHash": "/ULlnHXTzJ24alSygUZZsM48Q5qYvEO15wprPGSWpGePtLWr6LCNFS9tnfwZ5hhwMyF+3XS8QtiJGV5Fg83rpA==",
+  "success": true,
   "projectFilePath": "C:\\Desktop\\ChatWebServer\\ChatWebServer\\ChatWebServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\q_sch\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
@@ -60,24 +60,5 @@
     "C:\\Users\\q_sch\\.nuget\\packages\\system.text.json\\7.0.0\\system.text.json.7.0.0.nupkg.sha512",
     "C:\\Users\\q_sch\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1102",
-      "level": "Error",
-      "message": "Das Paket \"Microsoft.AspNetCore.Cors\" der Version (>= 6.0.0) wurde nicht gefunden.\r\n  - 26 Version(en) gefunden in \"nuget.org\" [ Nächste Version: 2.2.0 ]\r\n  - 0 Version(en) gefunden in Microsoft Visual Studio Offline Packages.\r\n  - 0 Version(en) gefunden in C:\\Program Files\\dotnet\\library-packs.",
-      "libraryId": "Microsoft.AspNetCore.Cors",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1102",
-      "level": "Error",
-      "message": "Das Paket \"Microsoft.AspNetCore.Authentication.Cookies\" der Version (>= 6.0.0) wurde nicht gefunden.\r\n  - 31 Version(en) gefunden in \"nuget.org\" [ Nächste Version: 2.2.0 ]\r\n  - 0 Version(en) gefunden in Microsoft Visual Studio Offline Packages.\r\n  - 0 Version(en) gefunden in C:\\Program Files\\dotnet\\library-packs.",
-      "libraryId": "Microsoft.AspNetCore.Authentication.Cookies",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

@@ -20,13 +20,15 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("ADMIN"));
 });
 
+// Add CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
         builder.WithOrigins("https://chat-test-chatweb.mregli.com")
                .AllowAnyHeader()
-               .AllowAnyMethod();
+               .AllowAnyMethod()
+               .AllowCredentials();
     });
 });
 
@@ -49,11 +51,11 @@ app.UseAuthorization();
 app.UseWebSockets();
 app.UseMiddleware<ChatWebSocketMiddleware>();
 
+// Use CORS policy
+app.UseCors("AllowSpecificOrigin");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-// Apply CORS policy here
-app.UseCors("AllowSpecificOrigin");
 
 app.Run();

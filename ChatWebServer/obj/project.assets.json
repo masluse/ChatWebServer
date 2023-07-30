@@ -2610,8 +2610,6 @@
   "projectFileDependencyGroups": {
     "net6.0": [
       "EntityFramework >= 6.4.4",
-      "Microsoft.AspNetCore.Authentication.Cookies >= 6.0.0",
-      "Microsoft.AspNetCore.Cors >= 6.0.0",
       "Microsoft.AspNetCore.WebSockets >= 2.2.1",
       "Microsoft.EntityFrameworkCore >= 7.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 7.0.9",
@@ -2668,14 +2666,6 @@
             "target": "Package",
             "version": "[6.4.4, )"
           },
-          "Microsoft.AspNetCore.Authentication.Cookies": {
-            "target": "Package",
-            "version": "[6.0.0, )"
-          },
-          "Microsoft.AspNetCore.Cors": {
-            "target": "Package",
-            "version": "[6.0.0, )"
-          },
           "Microsoft.AspNetCore.WebSockets": {
             "target": "Package",
             "version": "[2.2.1, )"
@@ -2721,25 +2711,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1102",
-      "level": "Error",
-      "message": "Das Paket \"Microsoft.AspNetCore.Cors\" der Version (>= 6.0.0) wurde nicht gefunden.\r\n  - 26 Version(en) gefunden in \"nuget.org\" [ Nächste Version: 2.2.0 ]\r\n  - 0 Version(en) gefunden in Microsoft Visual Studio Offline Packages.\r\n  - 0 Version(en) gefunden in C:\\Program Files\\dotnet\\library-packs.",
-      "libraryId": "Microsoft.AspNetCore.Cors",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1102",
-      "level": "Error",
-      "message": "Das Paket \"Microsoft.AspNetCore.Authentication.Cookies\" der Version (>= 6.0.0) wurde nicht gefunden.\r\n  - 31 Version(en) gefunden in \"nuget.org\" [ Nächste Version: 2.2.0 ]\r\n  - 0 Version(en) gefunden in Microsoft Visual Studio Offline Packages.\r\n  - 0 Version(en) gefunden in C:\\Program Files\\dotnet\\library-packs.",
-      "libraryId": "Microsoft.AspNetCore.Authentication.Cookies",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  }
 }
