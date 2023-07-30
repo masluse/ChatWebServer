@@ -30,27 +30,6 @@
                 </div>
             }
         </div>
-        <button class="btn btn-primary" onclick="openAddUserDialog()">Add User</button>
-        <form method="dialog" id="addUserForm" style="display:none">
-            <h4>Add User</h4>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter username">
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter password">
-            </div>
-            <div class="form-group">
-                <label for="role">Role</label>
-                <select class="form-control" id="role">
-                    <option value="ADMIN">ADMIN</option>
-                    <option value="USER">USER</option>
-                </select>
-            </div>
-            <button type="button" class="btn btn-primary" onclick="addUser()">Save</button>
-            <button type="button" class="btn btn-secondary" onclick="closeAddUserDialog()">Cancel</button>
-        </form>
         <form method="dialog" id="updateUserForm" style="display:none">
             <h4>Update User</h4>
             <input type="hidden" id="updateUserID">
@@ -65,10 +44,15 @@
                     <option value="USER">USER</option>
                 </select>
             </div>
+            <div class="form-group">
+                <label for="updateIsActive">Active</label>
+                <input type="checkbox" class="form-control" id="updateIsActive">
+            </div>
             <button type="button" class="btn btn-primary" onclick="updateUser()">Update</button>
             <button type="button" class="btn btn-danger" onclick="deleteUser()">Delete</button>
             <button type="button" class="btn btn-secondary" onclick="closeUpdateUserDialog()">Cancel</button>
         </form>
+
         <button class="btn btn-secondary" onclick="closeManageUsersDialog()">Close</button>
     </dialog>
 </div>
@@ -101,39 +85,16 @@
         document.getElementById("addUserForm").style.display = "none";
     }
 
-    function addUser() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-        const role = document.getElementById("role").value;
+    // Update User: 
 
-        // Perform an AJAX request to add the user in the backend
-        fetch("/Home/AddOrUpdateUser", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                Username: username,
-                Password: password,
-                Role: role,
-            }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Refresh the page after adding the user
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error("Error adding user:", error);
-            });
-    }
-
-    function openUpdateUserDialog(userID, username, role) {
+    function openUpdateUserDialog(userID, username, role, isActive) {
         document.getElementById("updateUserID").value = userID;
         document.getElementById("updateUsername").value = username;
         document.getElementById("updateRole").value = role;
+        document.getElementById("updateIsActive").checked = isActive;
         document.getElementById("updateUserForm").style.display = "block";
     }
+
 
     function closeUpdateUserDialog() {
         document.getElementById("updateUserForm").style.display = "none";
@@ -143,43 +104,29 @@
         const userID = document.getElementById("updateUserID").value;
         const username = document.getElementById("updateUsername").value;
         const role = document.getElementById("updateRole").value;
+        const isActive = document.getElementById("updateIsActive").checked;
 
-        // Perform an AJAX request to update the user in the backend
-        fetch(`/Home/AddOrUpdateUser/${userID}`, {
+        // Create a new FormData object
+        const formData = new FormData();
+        formData.append("UserID", userID);
+        formData.append("Username", username);
+        formData.append("Role", role);
+        formData.append("IsActive", isActive);
+
+        // Perform a POST request to update the user in the backend
+        fetch("/Home/UpdateUser", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                Username: username,
-                Role: role,
-            }),
+            body: formData, // Use the FormData object as the request body
         })
             .then(response => response.json())
             .then(data => {
-                // Refresh the page after updating the user
-                window.location.reload();
+                console.log(data.Message);
+                closeUpdateUserDialog();
             })
             .catch(error => {
                 console.error("Error updating user:", error);
             });
     }
 
-    function deleteUser() {
-        const userID = document.getElementById("updateUserID").value;
-
-        // Perform an AJAX request to delete the user in the backend
-        fetch(`/Home/DeleteUser/${userID}`, {
-            method: "POST",
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Refresh the page after deleting the user
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error("Error deleting user:", error);
-            });
-    }
 </script>
 

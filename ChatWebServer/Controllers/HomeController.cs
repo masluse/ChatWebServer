@@ -81,68 +81,24 @@ namespace ChatWebServer.Controllers
 
         [HttpPost]
         [Authorize(Policy = "AdminOnly")]
-        public IActionResult AddOrUpdateUser(User user)
+        public IActionResult UpdateUser(User user)
         {
-            if (user.UserID == 0)
+            var existingUser = _context.Users.FirstOrDefault(u => u.UserID == user.UserID);
+            if (existingUser == null)
             {
-                // Add new user
-                _context.Users.Add(user);
+                return NotFound("User with ID " + user.UserID + " was not found"); // User with the specified ID not found
             }
-            else
-            {
-                // Update existing user
-                var existingUser = _context.Users.FirstOrDefault(u => u.UserID == user.UserID);
-                if (existingUser == null)
-                {
-                    return NotFound(); 
-                }
 
-                existingUser.Username = user.Username;
-                existingUser.Password = user.Password;
-                existingUser.Role = user.Role;
-                existingUser.IsActive = user.IsActive;
-            }
+            existingUser.Username = user.Username;
+            existingUser.Password = PasswordHasher.HashPassword(user.Password); // Hash the new password
+            existingUser.Role = user.Role;
+            existingUser.IsActive = user.IsActive;
 
             _context.SaveChanges();
 
-            return Ok(new { Message = "User added/updated successfully.", UserId = user.UserID });
+            return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
 
-        [HttpPost]
-        [Authorize(Policy = "AdminOnly")]
-        public IActionResult DeleteUser(int userId)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
-            if (user == null)
-            {
-                return NotFound(); 
-            }
-
-            _context.Users.Remove(user);
-            _context.SaveChanges();
-
-            return Ok(new { Message = "User deleted successfully." });
-        }
-
-        [HttpGet]
-        [Authorize(Policy = "AdminOnly")]
-        public IActionResult GetUser(int userId)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
-            if (user == null)
-            {
-                return NotFound(); 
-            }
-
-            return PartialView("_UserFormPartial", user);
-        }
-
-        [HttpGet]
-        [Authorize(Policy = "AdminOnly")]
-        public IActionResult UserForm()
-        {
-            return PartialView("_UserFormPartial", new User());
-        }
 
         [HttpPost]
         public IActionResult SaveMessage(string message, int userID)
