@@ -69,6 +69,7 @@
             <button type="button" class="btn btn-danger" onclick="deleteUser()">Delete</button>
             <button type="button" class="btn btn-secondary" onclick="closeUpdateUserDialog()">Cancel</button>
         </form>
+        <button class="btn btn-secondary" onclick="closeManageUsersDialog()">Close</button>
     </dialog>
 </div>
 
@@ -82,6 +83,10 @@
     showButton.addEventListener("click", () => {
         favDialog.showModal();
     });
+
+    function closeManageUsersDialog() {
+        document.getElementById("manageUsersDialog").close();
+    }
 
     function expandUser(userBox) {
         const userInfo = userBox.querySelector(".user-info");
