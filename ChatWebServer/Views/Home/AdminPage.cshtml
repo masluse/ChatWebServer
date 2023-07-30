@@ -145,10 +145,11 @@
             .then(response => response.json())
             .then(data => {
                 location.reload();
-                openAddUserDialog(); 
+                showSuccessToast("User updated successfully.");
             })
             .catch(error => {
                 console.error("Error updating user:", error);
+                showErrorToast("Error updating user.");
             });
     }
 
@@ -165,10 +166,11 @@
                 .then(response => response.json())
                 .then(data => {
                     location.reload();
-                    openAddUserDialog();
+                    showSuccessToast("User deleted successfully.");
                 })
                 .catch(error => {
                     console.error("Error deleting user:", error);
+                    showErrorToast("Error deleting user.");
                 });
         }
     }
@@ -198,12 +200,39 @@
         })
             .then(response => response.json())
             .then(data => {
-                location.reload();
                 openAddUserDialog();
+                showSuccessToast("User added successfully.");
             })
             .catch(error => {
                 console.error("Error adding user:", error);
+                showErrorToast("Error adding user.");
             });
+    }
+
+    // Toasts 
+
+    // Function to show success toast
+    function showSuccessToast(message) {
+        Toastify({
+            text: message,
+            backgroundColor: "green",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "right", 
+        }).showToast();
+    }
+
+    // Function to show error toast
+    function showErrorToast(message) {
+        Toastify({
+            text: message,
+            backgroundColor: "red",
+            duration: 3000,
+            close: true,
+            gravity: "top", 
+            position: "right", 
+        }).showToast();
     }
 
 </script>
