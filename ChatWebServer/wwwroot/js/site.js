@@ -79,6 +79,7 @@
             .then(data => {
                 // Display the last messages in the chat window
                 data.reverse().forEach(message => {
+                    console.log(message.Message)
                     var messageDiv = document.createElement("div");
                     messageDiv.className = "message";
                     messageDiv.textContent = `${message.Username}: ${message.Message}`;
