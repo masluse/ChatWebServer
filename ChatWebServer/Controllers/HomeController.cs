@@ -218,6 +218,19 @@ namespace ChatWebServer.Controllers
             return Json(messages);
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            _logger.LogInformation("Logging out user: {Username}", User.Identity.Name);
+
+            // Perform the sign-out operation
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Redirect the user to the login page
+            return RedirectToAction("Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
