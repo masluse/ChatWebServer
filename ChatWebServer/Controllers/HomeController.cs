@@ -152,6 +152,8 @@ namespace ChatWebServer.Controllers
         [EnableCors("AllowSpecificOrigin")]
         public IActionResult SaveMessage(string message)
         {
+            _logger.LogInformation("Message: " + message);
+
             Console.WriteLine("Message: " + message);
             if (string.IsNullOrEmpty(message))
                 return BadRequest("Message cannot be empty.");
