@@ -33,6 +33,16 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("https://chat-test-chatweb.mregli.com")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -44,12 +54,7 @@ app.UseAuthorization();
 app.UseWebSockets();
 app.UseMiddleware<ChatWebSocketMiddleware>();
 
-// Add CORS policy
-app.UseCors(policy => policy
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-    .SetIsOriginAllowed(_ => true) // Allow any origin
-    .AllowCredentials());
+app.UseCors("AllowSpecificOrigin");
 
 app.MapControllerRoute(
     name: "default",

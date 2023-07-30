@@ -46,7 +46,7 @@
         var formData = new FormData();
         formData.append("message", message)
 
-        fetch("https://chat.mregli.com/Home/SaveMessage", {
+        fetch("https://chat-test-chatweb.mregli.com/Home/SaveMessage", {
             method: 'POST',
             body: formData
         })
