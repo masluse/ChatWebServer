@@ -186,6 +186,8 @@ namespace ChatWebServer.Controllers
                 return BadRequest("Message cannot be empty.");
             }
 
+            _logger.LogWarning("Identity: {}", User.Identity.Name);
+
             // Get the ID of the current authenticated user
             var userIDClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIDClaim == null || !int.TryParse(userIDClaim.Value, out int userID))
