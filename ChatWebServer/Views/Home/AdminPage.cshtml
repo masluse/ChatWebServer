@@ -102,7 +102,7 @@
         const role = document.getElementById("role").value;
 
         // Perform an AJAX request to add the user in the backend
-        fetch("/Admin/AddUser", {
+        fetch("/Home/AddUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -140,7 +140,7 @@
         const role = document.getElementById("updateRole").value;
 
         // Perform an AJAX request to update the user in the backend
-        fetch(`/Admin/UpdateUser/${userID}`, {
+        fetch(`/Home/UpdateUser/${userID}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -164,7 +164,7 @@
         const userID = document.getElementById("updateUserID").value;
 
         // Perform an AJAX request to delete the user in the backend
-        fetch(`/Admin/DeleteUser/${userID}`, {
+        fetch(`/Home/DeleteUser/${userID}`, {
             method: "POST",
         })
             .then(response => response.json())
