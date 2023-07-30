@@ -107,7 +107,7 @@
         const role = document.getElementById("role").value;
 
         // Perform an AJAX request to add the user in the backend
-        fetch("/Home/AddUser", {
+        fetch("/Home/AddOrUpdateUser", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -145,7 +145,7 @@
         const role = document.getElementById("updateRole").value;
 
         // Perform an AJAX request to update the user in the backend
-        fetch(`/Home/UpdateUser/${userID}`, {
+        fetch(`/Home/AddOrUpdateUser/${userID}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -182,3 +182,4 @@
             });
     }
 </script>
+
