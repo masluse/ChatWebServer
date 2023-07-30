@@ -100,9 +100,15 @@ namespace ChatWebServer.Controllers
 
 
         [HttpPost]
-        public IActionResult SaveMessage(string message, int userID)
+        public IActionResult SaveMessage(string message)
         {
-            if (string.IsNullOrEmpty(message)) return BadRequest("Message cannot be empty.");
+            if (string.IsNullOrEmpty(message))
+                return BadRequest("Message cannot be empty.");
+
+            // Get the ID of the current authenticated user
+            var userIDClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+            if (userIDClaim == null || !int.TryParse(userIDClaim.Value, out int userID))
+                return BadRequest("User ID not found or invalid.");
 
             var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = userID };
 
@@ -111,6 +117,7 @@ namespace ChatWebServer.Controllers
 
             return Ok("Message saved successfully.");
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
