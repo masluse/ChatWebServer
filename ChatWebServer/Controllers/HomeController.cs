@@ -163,15 +163,6 @@ namespace ChatWebServer.Controllers
             return Ok(new { Message = "User added successfully." });
         }
 
-        [HttpGet]
-        [Authorize(Policy = "AdminOnly")]
-        public IActionResult GetUsers()
-        {
-            _logger.LogInformation("Getting user list.");
-
-            var userList = _context.Users.ToList();
-            return Json(userList);
-        }
 
         [HttpPost]
         [EnableCors("AllowSpecificOrigin")]
@@ -208,7 +199,7 @@ namespace ChatWebServer.Controllers
             return Ok("Message saved successfully.");
         }
 
-        [HttpGet]
+        [HttpPost]
         [Authorize]
         public IActionResult GetLastMessages(int count)
         {
