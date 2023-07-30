@@ -89,7 +89,7 @@
 
 
 <script>
-    var userListData = @Html.Raw(Json.Serialize(Model));
+    var userName = @Json.Serialize(Context.User.Identity.Name);
 
     const showButton = document.getElementById("openAdminModalBtn");
     const favDialog = document.getElementById("manageUsersDialog");

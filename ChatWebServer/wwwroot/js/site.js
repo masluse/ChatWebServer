@@ -18,29 +18,11 @@
 
     socket.onmessage = function (e) {
         console.log(e);
-        var messageData = e.data.split(":");
-        var username = messageData[0].trim();
-        var message = messageData.slice(1).join(":").trim();
-
         var messageDiv = document.createElement("div");
         messageDiv.className = "message";
-
-        var usernameSpan = document.createElement("span");
-        usernameSpan.textContent = username + ": ";
-
-        // Get the role of the user from userListData
-        var role = getUserRole(username);
-        if (role === "ADMIN") {
-            usernameSpan.classList.add("admin");
-        }
-
-        var messageSpan = document.createElement("span");
-        messageSpan.textContent = message;
-
-        messageDiv.appendChild(usernameSpan);
-        messageDiv.appendChild(messageSpan);
-
+        messageDiv.textContent = e.data;
         document.getElementById("msgs").appendChild(messageDiv);
+        
     };
 
 
@@ -54,6 +36,12 @@
         }
 
         e.preventDefault();
+
+        if (!userName) {
+            // If userName is not available, the user is not authenticated
+            console.error("User is not authenticated.");
+            return;
+        }
 
         var message = userName + ": " + this.value;
         var messageValue = this.value;
