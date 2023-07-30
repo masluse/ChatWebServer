@@ -116,18 +116,23 @@ namespace ChatWebServer.Controllers
 
         [HttpPost]
         [Authorize(Policy = "AdminOnly")]
-        public IActionResult AddUser(User user)
+        public IActionResult AddUser(string username, string password, string role)
         {
-            var existingUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
+
+            var existingUser = _context.Users.FirstOrDefault(u => u.Username == username);
             if (existingUser != null)
             {
                 return BadRequest("User with the same username already exists.");
             }
 
             // Hash the password before storing it
-            user.Password = PasswordHasher.HashPassword(user.Password);
+            string hashedPassword = PasswordHasher.HashPassword(password);
 
-            _context.Users.Add(user);
+            var newUser = new User { Username = username, Password = hashedPassword, Role = role, IsActive = true };
+
+            
+
+            _context.Users.Add(newUser);
             _context.SaveChanges();
 
             return Ok(new { Message = "User added successfully.", UserId = user.UserID });
