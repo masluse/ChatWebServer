@@ -91,10 +91,11 @@
     // Update User: 
 
     function openUpdateUserDialog(userID, username, role, isActive) {
+        console.log("isActive value:", isActive);
         document.getElementById("updateUserID").value = userID;
         document.getElementById("updateUsername").value = username;
         document.getElementById("updateRole").value = role;
-        document.getElementById("updateIsActive").checked = isActive === "True"; // Convert "True" to true
+        document.getElementById("updateIsActive").checked = isActive === "True";
         document.getElementById("updateUserForm").style.display = "block";
     }
 
