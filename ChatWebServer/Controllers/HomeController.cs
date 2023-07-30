@@ -135,7 +135,7 @@ namespace ChatWebServer.Controllers
             _context.Users.Add(newUser);
             _context.SaveChanges();
 
-            return Ok(new { Message = "User added successfully.", UserId = user.UserID });
+            return Ok(new { Message = "User added successfully.", UserId = newUser.UserID });
         }
 
 
