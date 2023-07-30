@@ -117,26 +117,6 @@ body {
 
 }
 
-.user-box {
-    background-color: #2F4F4F;
-    color: white;
-    padding: 8px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    margin: 2em; 
-}
-
-.user-box p {
-    margin: 0;
-}
-
-.user-info {
-    background-color: #27403E;
-    padding: 10px;
-    border-radius: 5px;
-}
-
 dialog {
     background-color: #333333;
     color: white;
@@ -153,38 +133,6 @@ form {
     margin-top: 10px;
 }
 
-.dialog-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.user-box {
-    flex: 0 0 24%;
-    margin: 0.5em;
-    background-color: #2F4F4F;
-    color: white;
-    padding: 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-    box-sizing: border-box;
-}
-
-.user-box p {
-    margin: 0;
-}
-
-.user-box:hover {
-    background-color: #27403E;
-}
-
-@media (max-width: 767px) {
-    .dialog-container .user-box {
-        flex: 0 0 100%;
-    }
-}
-
 .btn-update {
     background-color: #337ab7;
 }
@@ -196,6 +144,24 @@ form {
     justify-content: space-between;
 }
 
+/* Styling for the user-box and user-info */
+.user-box {
+    background-color: #2F4F4F;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.user-box p {
+    margin: 0;
+}
+
+.user-box:hover {
+    background-color: #27403E;
+}
 
 .user-info {
     background-color: #27403E;
