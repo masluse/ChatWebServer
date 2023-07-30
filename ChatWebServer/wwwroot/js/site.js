@@ -63,7 +63,7 @@
             })
             .catch(error => {
                 console.error("Error saving message: ", error)
-            })
+            });
     }
 
     function fetchLastMessages(count) {
@@ -71,10 +71,7 @@
         formData.append("count", count);
 
         fetch("https://chat-test-chatweb.mregli.com/Home/GetLastMessages", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            method: 'POST',
             body: formData,
             credentials: 'include'
         })
