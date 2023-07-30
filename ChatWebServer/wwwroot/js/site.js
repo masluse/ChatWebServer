@@ -18,7 +18,7 @@
 
     socket.onmessage = function (e) {
         console.log(e);
-        var messageData = e.data.split(":"); 
+        var messageData = e.data.split(":");
         var username = messageData[0].trim();
         var message = messageData.slice(1).join(":").trim();
 
@@ -27,8 +27,9 @@
 
         var usernameSpan = document.createElement("span");
         usernameSpan.textContent = username + ": ";
+
         if (username.includes("ADMIN")) {
-            usernameSpan.style.color = "red"; 
+            usernameSpan.classList.add("admin");
         }
 
         var messageSpan = document.createElement("span");
@@ -39,6 +40,7 @@
 
         document.getElementById("msgs").appendChild(messageDiv);
     };
+
 
 
 
