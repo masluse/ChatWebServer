@@ -114,6 +114,26 @@ namespace ChatWebServer.Controllers
             return Ok(new { Message = "User deleted successfully.", UserId = userId });
         }
 
+        [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult AddUser(User user)
+        {
+            var existingUser = _context.Users.FirstOrDefault(u => u.Username == user.Username);
+            if (existingUser != null)
+            {
+                return BadRequest("User with the same username already exists.");
+            }
+
+            // Hash the password before storing it
+            user.Password = PasswordHasher.HashPassword(user.Password);
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return Ok(new { Message = "User added successfully.", UserId = user.UserID });
+        }
+
+
 
         [HttpPost]
         public IActionResult SaveMessage(string message)

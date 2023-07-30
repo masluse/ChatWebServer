@@ -56,6 +56,35 @@
             <button type="button" class="btn btn-secondary" onclick="closeUpdateUserDialog()">Cancel</button>
         </form>
 
+        <!-- New User Form -->
+        <form method="dialog" id="addUserForm" style="display:none">
+            <h4>Add User</h4>
+            <div class="form-group">
+                <label for="addUsername">Username</label>
+                <input type="text" class="form-control" id="addUsername" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="addPassword">Password</label>
+                <input type="password" class="form-control" id="addPassword" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label for="addRole">Role</label>
+                <select class="form-control" id="addRole">
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addIsActive">Active</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="form-control" id="addIsActive">
+                    <span class="checkmark"></span>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addUser()">Add User</button>
+            <button type="button" class="btn btn-secondary" onclick="closeAddUserDialog()">Cancel</button>
+        </form>
+
         <button class="btn btn-secondary" onclick="closeManageUsersDialog()">Close</button>
     </dialog>
 </div>
@@ -146,6 +175,40 @@
                     console.error("Error deleting user:", error);
                 });
         }
+    }
+
+    // Add User
+    function openAddUserDialog() {
+        document.getElementById("addUserForm").style.display = "block";
+    }
+
+    function closeAddUserDialog() {
+        document.getElementById("addUserForm").style.display = "none";
+    }
+
+    function addUser() {
+        const username = document.getElementById("addUsername").value;
+        const password = document.getElementById("addPassword").value;
+        const role = document.getElementById("addRole").value;
+        const isActive = document.getElementById("addIsActive").checked;
+
+        const formData = new FormData();
+        formData.append("Username", username);
+        formData.append("Password", password);
+        formData.append("Role", role);
+        formData.append("IsActive", isActive);
+
+        fetch("/Home/AddUser", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                location.reload();
+            })
+            .catch(error => {
+                console.error("Error adding user:", error);
+            });
     }
 
 </script>
