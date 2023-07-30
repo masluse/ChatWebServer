@@ -211,7 +211,7 @@ namespace ChatWebServer.Controllers
                 {
                     Username = m.User.Username,
                     Message = m.Value,
-                    Timestamp = m.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")
+                    Timestamp = DateTime.SpecifyKind(m.Timestamp, DateTimeKind.Utc) // Specify the DateTimeKind as Utc
                 })
                 .ToList();
 
