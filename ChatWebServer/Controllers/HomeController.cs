@@ -30,19 +30,25 @@ namespace ChatWebServer.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            _logger.LogInformation("GET request received for Index page.");
             return View("AuthenticateUser");
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(string username, string password)
         {
+            _logger.LogInformation("POST request received for Index page.");
+
             var hashedPassword = PasswordHasher.HashPassword(password);
             var user = _context.Users.FirstOrDefault(u => u.Username == username && u.Password == hashedPassword);
 
             if (user == null || !user.IsActive)
             {
+                _logger.LogWarning("Authentication failed for user: {Username}", username);
                 return View("AuthenticateUser");
             }
+
+            _logger.LogInformation("User authenticated successfully: {Username}", username);
 
             // Authentication successful. Sign in the user with cookies
             var claims = new List<Claim>
@@ -59,10 +65,12 @@ namespace ChatWebServer.Controllers
             // Redirect to the appropriate page based on the user's role
             if (user.Role == "ADMIN")
             {
+                _logger.LogInformation("Redirecting to AdminPage for user: {Username}", username);
                 return RedirectToAction("AdminPage");
             }
             else
             {
+                _logger.LogInformation("Redirecting to UserPage for user: {Username}", username);
                 return RedirectToAction("UserPage");
             }
         }
@@ -70,6 +78,8 @@ namespace ChatWebServer.Controllers
         [Authorize(Policy = "AdminOnly")]
         public IActionResult AdminPage()
         {
+            _logger.LogInformation("Accessing AdminPage.");
+
             var userList = _context.Users.ToList();
             return View(userList);
         }
@@ -77,6 +87,8 @@ namespace ChatWebServer.Controllers
         [Authorize]
         public IActionResult UserPage()
         {
+            _logger.LogInformation("Accessing UserPage.");
+
             return View();
         }
 
@@ -84,10 +96,13 @@ namespace ChatWebServer.Controllers
         [Authorize(Policy = "AdminOnly")]
         public IActionResult UpdateUser(User user)
         {
+            _logger.LogInformation("Updating user.");
+
             var existingUser = _context.Users.FirstOrDefault(u => u.UserID == user.UserID);
             if (existingUser == null)
             {
-                return NotFound("User with ID " + user.UserID + " was not found"); // User with the specified ID not found
+                _logger.LogWarning("User with ID {UserID} was not found.", user.UserID);
+                return NotFound("User with ID " + user.UserID + " was not found");
             }
 
             existingUser.Username = user.Username;
@@ -96,6 +111,8 @@ namespace ChatWebServer.Controllers
 
             _context.SaveChanges();
 
+            _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
+
             return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
 
@@ -103,14 +120,19 @@ namespace ChatWebServer.Controllers
         [Authorize(Policy = "AdminOnly")]
         public IActionResult DeleteUser(int userId)
         {
+            _logger.LogInformation("Deleting user with ID {UserID}.", userId);
+
             var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
             if (user == null)
             {
-                return NotFound("User with ID " + userId + " was not found"); // User with the specified ID not found
+                _logger.LogWarning("User with ID {UserID} was not found.", userId);
+                return NotFound("User with ID " + userId + " was not found");
             }
 
             _context.Users.Remove(user);
             _context.SaveChanges();
+
+            _logger.LogInformation("User deleted successfully: {UserID}", userId);
 
             return Ok(new { Message = "User deleted successfully.", UserId = userId });
         }
@@ -119,10 +141,12 @@ namespace ChatWebServer.Controllers
         [Authorize(Policy = "AdminOnly")]
         public IActionResult AddUser(string username, string password, string role)
         {
+            _logger.LogInformation("Adding new user.");
 
             var existingUser = _context.Users.FirstOrDefault(u => u.Username == username);
             if (existingUser != null)
             {
+                _logger.LogWarning("User with the same username already exists.");
                 return BadRequest("User with the same username already exists.");
             }
 
@@ -131,10 +155,10 @@ namespace ChatWebServer.Controllers
 
             var newUser = new User { Username = username, Password = hashedPassword, Role = role, IsActive = true };
 
-            
-
             _context.Users.Add(newUser);
             _context.SaveChanges();
+
+            _logger.LogInformation("User added successfully.");
 
             return Ok(new { Message = "User added successfully." });
         }
@@ -143,39 +167,47 @@ namespace ChatWebServer.Controllers
         [Authorize(Policy = "AdminOnly")]
         public IActionResult GetUsers()
         {
+            _logger.LogInformation("Getting user list.");
+
             var userList = _context.Users.ToList();
             return Json(userList);
         }
-
 
         [HttpPost]
         [EnableCors("AllowSpecificOrigin")]
         [Authorize]
         public IActionResult SaveMessage(string message)
         {
-            _logger.LogInformation("Message: " + message);
+            _logger.LogInformation("Received a message: {Message}", message);
 
-            Console.WriteLine("Message: " + message);
             if (string.IsNullOrEmpty(message))
+            {
+                _logger.LogWarning("Message is empty or null.");
                 return BadRequest("Message cannot be empty.");
+            }
 
             // Get the ID of the current authenticated user
             var userIDClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
             if (userIDClaim == null || !int.TryParse(userIDClaim.Value, out int userID))
+            {
+                _logger.LogWarning("User ID {UserID} not found or invalid.", userIDClaim);
                 return BadRequest("User ID not found or invalid.");
+            }
 
             var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = userID };
 
             _context.Messages.Add(newMessage);
             _context.SaveChanges();
 
+            _logger.LogInformation("Message saved successfully.");
+
             return Ok("Message saved successfully.");
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            _logger.LogError("An error occurred. Request ID: {RequestId}", Activity.Current?.Id ?? HttpContext.TraceIdentifier);
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
