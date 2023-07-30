@@ -2,6 +2,7 @@
     var protocol = location.protocol === "https:" ? "wss:" : "ws:";
     var wsUri = protocol + "//" + window.location.host;
     var socket = new WebSocket(wsUri);
+    const logoutBtn = document.getElementById("logoutBtn");
 
     const d = new Date();
     let time = d.getTime();
@@ -53,7 +54,7 @@
         var formData = new FormData();
         formData.append("message", message)
 
-        fetch("https://chat-test-chatweb.mregli.com/Home/SaveMessage", {
+        fetch("/Home/SaveMessage", {
             method: 'POST',
             body: formData,
             credentials: 'include'
@@ -70,7 +71,7 @@
         var formData = new FormData();
         formData.append("count", count);
 
-        fetch("https://chat-test-chatweb.mregli.com/Home/GetLastMessages", {
+        fetch("/Home/GetLastMessages", {
             method: 'POST',
             body: formData,
             credentials: 'include'
@@ -89,5 +90,27 @@
                 console.error("Error fetching last messages: ", error);
             });
     }
+
+    logoutBtn.addEventListener("click", function () {
+        // Send a POST request to the Logout action
+        fetch("/Home/Logout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json" // Set the content type if required
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("An error occurred while logging out.");
+                }
+                // If the logout was successful, redirect the user to the login page
+                window.location.href = "/Home/Index";
+            })
+            .catch(error => {
+                // Handle any errors if needed
+                console.error(error.message);
+                alert("An error occurred while logging out.");
+            });
+    });
 
 });
