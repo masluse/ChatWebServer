@@ -4,11 +4,11 @@
     ViewData["Title"] = "Admin Page";
 }
 
-<form asp-action="Logout" method="post" class="logout-form">
-    <button type="submit" class="btn btn-danger">Logout</button>
-</form>
-<div class="text-center">
+
     
+
+<div class="text-center">
+    <button type="submit" class="btn btn-danger" id="logoutBtn">Logout</button>
     <button type="button" class="btn" id="openAdminModalBtn">Do Admin Stuff</button>
     <div class="chat-container" id="msgs">
         <!-- Messages will be dynamically added here -->
