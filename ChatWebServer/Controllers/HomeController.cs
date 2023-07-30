@@ -149,6 +149,7 @@ namespace ChatWebServer.Controllers
 
 
         [HttpPost]
+        [EnableCors("AllowSpecificOrigin")]
         public IActionResult SaveMessage(string message)
         {
             Console.WriteLine("Message: " + message);
