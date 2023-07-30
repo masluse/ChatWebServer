@@ -45,6 +45,7 @@ namespace ChatWebServer.Controllers
             if (user == null || !user.IsActive)
             {
                 _logger.LogWarning("Authentication failed for user: {Username}", username);
+                ViewBag.ErrorMessage = "Wrong credentials or user is disabled.";
                 return View("AuthenticateUser");
             }
 
@@ -203,6 +204,8 @@ namespace ChatWebServer.Controllers
         [Authorize]
         public IActionResult GetLastMessages(int count)
         {
+            _logger.LogInformation("Getting last {count} saved messages.", count);
+
             var messages = _context.Messages
                 .Include(m => m.User)
                 .OrderByDescending(m => m.Timestamp)
