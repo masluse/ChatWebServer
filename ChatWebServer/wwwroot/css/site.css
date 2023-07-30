@@ -243,11 +243,12 @@ button:hover {
     left: 0; 
 }
 
-.alert {
-    background-color: orangered;
+.username {
+    /* Default color for usernames */
+    color: white;
 }
 
 .username.admin {
+    /* Red color for "ADMIN" usernames */
     color: red;
-    font-weight: bold;
 }
