@@ -193,7 +193,12 @@ namespace ChatWebServer.Controllers
                 return NotFound("User with username " + User.Identity.Name + " not found");
             }
 
-            var newMessage = new Message { Value = message, Timestamp = DateTimeOffset.Now, FK_userID = currentUser.UserID };
+            var newMessage = new Message
+            {
+                Value = message,
+                Timestamp = DateTimeOffset.UtcNow, // Set the DateTimeOffset with DateTimeKind.Utc
+                FK_userID = currentUser.UserID
+            };
 
             _context.Messages.Add(newMessage);
             _context.SaveChanges();
