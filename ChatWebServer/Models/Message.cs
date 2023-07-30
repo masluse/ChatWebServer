@@ -8,7 +8,7 @@ namespace ChatWebServer.Models
         public int MessageID { get; set; }
         [Column("value")]
         public string Value { get; set; }
-        [Column("timestamp")]
+        [Column("timeStamp")]
         public DateTimeOffset Timestamp { get; set; }
         [Column("FK_userID")]
         public int FK_userID { get; set; }
