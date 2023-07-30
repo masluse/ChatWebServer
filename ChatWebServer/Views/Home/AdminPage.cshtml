@@ -26,6 +26,7 @@
                         <p>Role: @user.Role</p>
                         <p>Active: @user.IsActive</p>
                         <button class="btn btn-primary btn-update" onclick="openUpdateUserDialog('@user.UserID', '@user.Username', '@user.Role', @user.IsActive)">Update</button>
+                        <button class="btn btn-danger btn-delete" onclick="deleteUser('@user.UserID')">Delete</button>
                     </div>
                 </div>
             }
@@ -52,7 +53,6 @@
                 </div>
             </div>
             <button type="button" class="btn btn-primary" onclick="updateUser()">Update</button>
-            <button type="button" class="btn btn-danger" onclick="deleteUser()">Delete</button>
             <button type="button" class="btn btn-secondary" onclick="closeUpdateUserDialog()">Cancel</button>
         </form>
 
@@ -126,6 +126,22 @@
             .catch(error => {
                 console.error("Error updating user:", error);
             });
+    }
+
+    // Delete User
+    function deleteUser(userID) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            fetch(`/Home/DeleteUser/${userID}`, {
+                method: "POST",
+            })
+                .then(response => response.json())
+                .then(data => {
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error("Error deleting user:", error);
+                });
+        }
     }
 
 </script>

@@ -98,6 +98,22 @@ namespace ChatWebServer.Controllers
             return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
 
+        [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult DeleteUser(int userId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
+            if (user == null)
+            {
+                return NotFound("User with ID " + userId + " was not found"); // User with the specified ID not found
+            }
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+
+            return Ok(new { Message = "User deleted successfully.", UserId = userId });
+        }
+
 
         [HttpPost]
         public IActionResult SaveMessage(string message)
