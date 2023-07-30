@@ -105,12 +105,39 @@
                 }
                 // If the logout was successful, redirect the user to the login page
                 window.location.href = "/Home/Index";
+                showSuccessToast("Loged out")
             })
             .catch(error => {
                 // Handle any errors if needed
                 console.error(error.message);
-                alert("An error occurred while logging out.");
+                showErrorToast("An error occurred while logging out.");
             });
     });
+
+    // Toasts 
+
+    // Function to show success toast
+    function showSuccessToast(message) {
+        Toastify({
+            text: message,
+            backgroundColor: "green",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+        }).showToast();
+    }
+
+    // Function to show error toast
+    function showErrorToast(message) {
+        Toastify({
+            text: message,
+            backgroundColor: "red",
+            duration: 3000,
+            close: true,
+            gravity: "top",
+            position: "right",
+        }).showToast();
+    }
 
 });
