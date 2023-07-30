@@ -2,12 +2,15 @@
 using ChatWebServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Data.Entity;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ChatWebServer.Controllers
@@ -28,7 +31,6 @@ namespace ChatWebServer.Controllers
         {
             return View("AuthenticateUser");
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Index(string username, string password)
@@ -64,7 +66,6 @@ namespace ChatWebServer.Controllers
             }
         }
 
-
         [Authorize(Policy = "AdminOnly")]
         public IActionResult AdminPage()
         {
@@ -76,6 +77,71 @@ namespace ChatWebServer.Controllers
         public IActionResult UserPage()
         {
             return View();
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult AddOrUpdateUser(User user)
+        {
+            if (user.UserID == 0)
+            {
+                // Add new user
+                _context.Users.Add(user);
+            }
+            else
+            {
+                // Update existing user
+                var existingUser = _context.Users.FirstOrDefault(u => u.UserID == user.UserID);
+                if (existingUser == null)
+                {
+                    return NotFound(); 
+                }
+
+                existingUser.Username = user.Username;
+                existingUser.Password = user.Password;
+                existingUser.Role = user.Role;
+                existingUser.IsActive = user.IsActive;
+            }
+
+            _context.SaveChanges();
+
+            return Ok(new { Message = "User added/updated successfully.", UserId = user.UserID });
+        }
+
+        [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult DeleteUser(int userId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
+            if (user == null)
+            {
+                return NotFound(); 
+            }
+
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+
+            return Ok(new { Message = "User deleted successfully." });
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult GetUser(int userId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserID == userId);
+            if (user == null)
+            {
+                return NotFound(); 
+            }
+
+            return PartialView("_UserFormPartial", user);
+        }
+
+        [HttpGet]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult UserForm()
+        {
+            return PartialView("_UserFormPartial", new User());
         }
 
         [HttpPost]
