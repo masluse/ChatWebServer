@@ -138,6 +138,13 @@ namespace ChatWebServer.Controllers
             return Ok(new { Message = "User added successfully." });
         }
 
+        [HttpGet]
+        [Authorize(Policy = "AdminOnly")]
+        public IActionResult GetUsers()
+        {
+            var userList = _context.Users.ToList();
+            return Json(userList);
+        }
 
 
         [HttpPost]
