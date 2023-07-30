@@ -20,18 +20,6 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("ADMIN"));
 });
 
-// Add CORS policy
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin", builder =>
-    {
-        builder.WithOrigins("https://chat-test-chatweb.mregli.com")
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-               .AllowCredentials();
-    });
-});
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -51,8 +39,11 @@ app.UseAuthorization();
 app.UseWebSockets();
 app.UseMiddleware<ChatWebSocketMiddleware>();
 
-// Use CORS policy
-app.UseCors("AllowSpecificOrigin");
+app.UseCors(x => x
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .SetIsOriginAllowed(origin => true) // allow any origin 
+    .AllowCredentials());
 
 app.MapControllerRoute(
     name: "default",
