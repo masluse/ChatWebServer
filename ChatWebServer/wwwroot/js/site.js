@@ -48,7 +48,8 @@
 
         fetch("https://chat-test-chatweb.mregli.com/Home/SaveMessage", {
             method: 'POST',
-            body: formData
+            body: formData,
+            credentials: 'include'
         })
             .then(response => {
                 console.log(response.status + " " + response.statusText)
