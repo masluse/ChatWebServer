@@ -25,7 +25,7 @@
                         <p>ID: @user.UserID</p>
                         <p>Role: @user.Role</p>
                         <p>Active: @user.IsActive</p>
-                        <button class="btn btn-primary btn-update" onclick="openUpdateUserDialog('@user.UserID', '@user.Username', '@user.Role', @user.IsActive)">Update</button>
+                        <button class="btn btn-primary btn-update" onclick="openUpdateUserDialog('@user.UserID', '@user.Username', '@user.Role', '@user.IsActive')">Update</button>
                         <button class="btn btn-danger btn-delete" onclick="deleteUser('@user.UserID')">Delete</button>
                     </div>
                 </div>
@@ -91,7 +91,6 @@
     // Update User: 
 
     function openUpdateUserDialog(userID, username, role, isActive) {
-        console.log("isActive value:", isActive);
         document.getElementById("updateUserID").value = userID;
         document.getElementById("updateUsername").value = username;
         document.getElementById("updateRole").value = role;
