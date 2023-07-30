@@ -244,12 +244,62 @@
         }).showToast();
     }
 
-    function loadUsers() {
+    function createUserElement(user) {
+        const userBox = document.createElement("div");
+        userBox.className = "user-box";
+        userBox.onclick = function () {
+            expandUser(userBox);
+        };
+
+        const usernameParagraph = document.createElement("p");
+        usernameParagraph.textContent = user.Username;
+        userBox.appendChild(usernameParagraph);
+
+        const userInfoDiv = document.createElement("div");
+        userInfoDiv.className = "user-info";
+        userInfoDiv.style.display = "none";
+
+        const idParagraph = document.createElement("p");
+        idParagraph.textContent = "ID: " + user.UserID;
+        userInfoDiv.appendChild(idParagraph);
+
+        const roleParagraph = document.createElement("p");
+        roleParagraph.textContent = "Role: " + user.Role;
+        userInfoDiv.appendChild(roleParagraph);
+
+        const isActiveParagraph = document.createElement("p");
+        isActiveParagraph.textContent = "Active: " + user.IsActive;
+        userInfoDiv.appendChild(isActiveParagraph);
+
+        const updateButton = document.createElement("button");
+        updateButton.className = "btn btn-primary btn-update";
+        updateButton.textContent = "Update";
+        updateButton.onclick = function () {
+            openUpdateUserDialog(user.UserID, user.Username, user.Role, user.IsActive);
+        };
+        userInfoDiv.appendChild(updateButton);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "btn btn-danger btn-delete";
+        deleteButton.textContent = "Delete";
+        deleteButton.onclick = function () {
+            deleteUser(user.UserID);
+        };
+        userInfoDiv.appendChild(deleteButton);
+
+        userBox.appendChild(userInfoDiv);
+
+        return userBox;
+    }
+
+    // Load users on page load:
+    document.addEventListener("DOMContentLoaded", function () {
         fetch("/Home/GetUsers")
             .then(response => response.json())
             .then(users => {
+                // Populate the user list with the received data
                 const userListDiv = document.getElementById("userList");
-                userListDiv.innerHTML = ""; 
+                userListDiv.innerHTML = ""; // Clear the existing content
 
                 users.forEach(user => {
                     const userBox = createUserElement(user);
@@ -259,61 +309,7 @@
             .catch(error => {
                 console.error("Error fetching users:", error);
             });
-    }
-
-    function createUserElement(user) {
-        const userBox = document.createElement("div");
-        userBox.classList.add("user-box");
-        userBox.onclick = function () {
-            expandUser(userBox);
-        };
-
-        const usernameParagraph = document.createElement("p");
-        usernameParagraph.textContent = user.Username;
-
-        const userInfoDiv = document.createElement("div");
-        userInfoDiv.classList.add("user-info");
-        userInfoDiv.style.display = "none";
-
-        const idParagraph = document.createElement("p");
-        idParagraph.textContent = "ID: " + user.UserID;
-
-        const roleParagraph = document.createElement("p");
-        roleParagraph.textContent = "Role: " + user.Role;
-
-        const activeParagraph = document.createElement("p");
-        activeParagraph.textContent = "Active: " + (user.IsActive ? "Yes" : "No");
-
-        const updateButton = document.createElement("button");
-        updateButton.classList.add("btn", "btn-primary", "btn-update");
-        updateButton.textContent = "Update";
-        updateButton.onclick = function () {
-            openUpdateUserDialog(user.UserID, user.Username, user.Role, user.IsActive);
-        };
-
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("btn", "btn-danger", "btn-delete");
-        deleteButton.textContent = "Delete";
-        deleteButton.onclick = function () {
-            deleteUser(user.UserID);
-        };
-
-        // Append elements to user info div
-        userInfoDiv.appendChild(idParagraph);
-        userInfoDiv.appendChild(roleParagraph);
-        userInfoDiv.appendChild(activeParagraph);
-        userInfoDiv.appendChild(updateButton);
-        userInfoDiv.appendChild(deleteButton);
-
-        // Append elements to user box
-        userBox.appendChild(usernameParagraph);
-        userBox.appendChild(userInfoDiv);
-
-        return userBox;
-    }
-
-    // Load users on page load
-    document.addEventListener("DOMContentLoaded", loadUsers);
+    });
 
 </script>
 
