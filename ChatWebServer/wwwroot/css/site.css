@@ -228,7 +228,7 @@ button:hover {
 }*/
 
 .navbar {
-    background-color: #2F4F4F;
+    border-bottom: solid 1px white; 
     padding: 10px;
 }
 
