@@ -234,8 +234,14 @@ button:hover {
 @media (max-width: 767px) {
 
     .navbar {
-        border-bottom: solid 1px white;
-        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #navbarMenu {
+        display: flex;
+        align-items: center;
     }
 
     .nav-item {
