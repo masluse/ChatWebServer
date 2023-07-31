@@ -213,18 +213,6 @@ button:hover {
     padding: 10px;
 }
 
-.nav-item {
-    margin-right: 10px;
-}
-
-.nav-item:last-child {
-    margin-right: 0;
-}
-
-.nav-link {
-    color: white;
-}
-
 .chat-container {
     max-width: 800px;
     margin: 0 auto;
@@ -245,18 +233,6 @@ button:hover {
     #navbarMenu {
         display: flex;
         align-items: center;
-    }
-
-    .nav-item {
-        margin-right: 10px;
-    }
-
-    .nav-item:last-child {
-        margin-right: 0;
-    }
-
-    .nav-link {
-        color: white;
     }
 
     .text-center {
