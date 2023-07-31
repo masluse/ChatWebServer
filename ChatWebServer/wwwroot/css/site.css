@@ -208,23 +208,15 @@ button:hover {
 }*/
 
 .navbar {
-    border-bottom: solid 1px white;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: solid 1px white;
     padding: 10px;
 }
 
-.nav-item {
-    margin-right: 10px;
-}
-
-.nav-item:last-child {
-    margin-right: 0;
-}
-
-.nav-link {
-    color: white;
+.navbar-nav .btn {
+    margin-left: 10px;
 }
 
 .chat-container {
@@ -259,11 +251,6 @@ button:hover {
 
     .nav-link {
         color: white;
-    }
-
-    .text-center {
-        position: relative;
-        min-height: calc(100vh - 64px);
     }
 
     html {

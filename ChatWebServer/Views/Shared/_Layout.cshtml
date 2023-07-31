@@ -17,10 +17,11 @@
             <div id="navbarMenu">
                 <div class="navbar-nav ml-auto">
                     <button type="submit" class="btn btn-danger nav-link" id="logoutBtn">Logout</button>
- 
-                    @* Default Navbar Link(s) *@
-                    @RenderSection("NavbarLinks", required: false)
                 </div>
+            </div>
+            <div class="navbar-nav">
+                <!-- Default Navbar Link(s) -->
+                @RenderSection("NavbarLinks", required: false)
             </div>
         </nav>
     </header>
