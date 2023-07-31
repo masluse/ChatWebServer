@@ -85,7 +85,7 @@ body {
     box-shadow: none;
 }
 
-#openAdminModalBtn {
+/*#openAdminModalBtn {
     background-color: #27403E;
     box-shadow: none;
     color: white;
@@ -94,7 +94,7 @@ body {
     position: fixed;
     top: 0; 
     z-index: 1;
-}
+}*/
 
 dialog {
     background-color: #333333;
@@ -215,13 +215,13 @@ button:hover {
     transform: rotate(45deg);
 }
 
-#logoutBtn {
+/*#logoutBtn {
     position: fixed;
     margin: 1em;
     top: 0; 
     left: 0; 
     z-index: 1;
-}
+}*/
 
 /*.admin {
     color: red; 
@@ -255,16 +255,16 @@ button:hover {
 
 /* Mobile devices */
 @media (max-width: 767px) {
-    #openAdminModalBtn {
+    /*#openAdminModalBtn {
         top: 0;
         transform: translateY(0);
-    }
+    }*/
 
-    #logoutBtn {
+    /*#logoutBtn {
         top: 0;
         left: 0;
         right: auto;
-    }
+    }*/
 
     .chat-container {
         padding-top: 120px;
