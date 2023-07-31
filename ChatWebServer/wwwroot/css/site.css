@@ -257,34 +257,6 @@ button:hover {
     html {
         font-size: 16px;
     }
-    .navbar-expand-md .navbar-nav .nav-link {
-        display: none;
-    }
-
-    .nav-item:last-child .nav-link {
-        display: block;
-    }
-
-    .navbar-toggler {
-        display: block;
-        position: fixed;
-        top: 0;
-        right: 0;
-        z-index: 1;
-    }
-
-    .navbar-collapse {
-        background-color: #2F4F4F;
-        padding: 10px;
-        position: fixed;
-        top: 50px;
-        left: -100%;
-        transition: left 0.3s;
-    }
-
-    .navbar-collapse.show {
-        left: 0;
-    }
 
 }
 
