@@ -2,12 +2,6 @@ html {
     font-size: 14px;
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
 html {
     position: relative;
     min-height: 100%;
@@ -23,8 +17,9 @@ body {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    overflow-y: auto; 
-    flex: 1; 
+    overflow-y: auto;
+    flex: 1;
+    padding-top: 80px; 
 }
 
 .message {
@@ -93,28 +88,12 @@ body {
 #openAdminModalBtn {
     background-color: #27403E;
     box-shadow: none;
-    color: white; 
+    color: white;
     margin: 1em;
     right: 0;
-    position: absolute; 
-}
-
-@media (max-width: 767px) {
-    #openAdminModalBtn {
-        background-color: #27403E;
-        box-shadow: none;
-        color: white;
-        margin-right: 20%;
-        display: block; 
-        padding-left: 5em;
-        padding-right: 5em;
-    }
-
-    .text-center {
-        position: relative; 
-        height: 100vh;
-    }
-
+    position: fixed;
+    top: 0; 
+    z-index: 1;
 }
 
 dialog {
@@ -125,7 +104,7 @@ dialog {
     padding: 20px; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     font-size: 16px;
-    width: 40%;
+    width: 50%;
 }
 
 form {
@@ -237,12 +216,40 @@ button:hover {
 }
 
 #logoutBtn {
-    position: absolute;
-    margin: 1em; 
-    top: 0;
+    position: fixed;
+    margin: 1em;
+    top: 0; 
     left: 0; 
+    z-index: 1;
 }
 
 /*.admin {
     color: red; 
 }*/
+
+/* Mobile devices */
+@media (max-width: 767px) {
+    #openAdminModalBtn {
+        top: 0;
+        transform: translateY(0);
+    }
+
+    #logoutBtn {
+        top: 0;
+        left: 0;
+        right: auto;
+    }
+
+    .chat-container {
+        padding-top: 120px;
+    }
+
+    .text-center {
+        position: relative;
+        height: 100vh;
+    }
+
+    html {
+        font-size: 16px;
+    }
+}

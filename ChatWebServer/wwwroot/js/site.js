@@ -38,7 +38,6 @@
         e.preventDefault();
 
         if (!userName) {
-            // If userName is not available, the user is not authenticated
             console.error("User is not authenticated.");
             return;
         }
