@@ -206,7 +206,10 @@ button:hover {
 }*/
 
 .navbar {
-    border-bottom: solid 1px white; 
+    border-bottom: solid 1px white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
 }
 
