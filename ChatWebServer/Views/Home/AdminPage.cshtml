@@ -4,25 +4,25 @@
     ViewData["Title"] = "Admin Page";
 }
 
-<nav class="navbar navbar-expand-md">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar links -->
-    <div class="collapse navbar-collapse" id="navbarMenu">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <button type="submit" class="btn btn-danger nav-link" id="logoutBtn">Logout</button>
-            </li>
-            <!-- Admin button -->
-            <li class="nav-item">
-                <button type="button" class="btn nav-link" id="openAdminModalBtn">Do Admin Stuff</button>
-            </li>
-        </ul>
-    </div>
-</nav>
 <div class="text-center">
+    <nav class="navbar navbar-expand-md">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbarMenu">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <button type="submit" class="btn btn-danger nav-link" id="logoutBtn">Logout</button>
+                </li>
+                <!-- Admin button -->
+                <li class="nav-item">
+                    <button type="button" class="btn nav-link" id="openAdminModalBtn">Do Admin Stuff</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
     <div class="chat-container" id="msgs">
         <!-- Messages will be dynamically added here -->
     </div>
