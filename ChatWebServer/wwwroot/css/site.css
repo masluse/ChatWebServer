@@ -13,14 +13,6 @@ body {
     background-color: #333333;
 }
 
-.chat-container {
-    max-width: 800px;
-    margin: 0 auto;
-    overflow-y: auto;
-    flex: 1;
-    padding-top: 80px; 
-}
-
 .message {
     color: white;
     background-color: #2F4F4F;
@@ -236,7 +228,6 @@ button:hover {
 .chat-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
     overflow-y: auto;
     flex: 1;
     padding-top: 80px;
