@@ -221,6 +221,10 @@ button:hover {
     z-index: 9999; 
 }
 
+.text-center {
+    padding-top: 64px; 
+}
+
 .navbar-nav .btn {
     margin-left: 10px;
 }
