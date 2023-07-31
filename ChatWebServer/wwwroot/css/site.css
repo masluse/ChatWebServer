@@ -76,10 +76,12 @@ body {
 #openAdminModalBtn {
     background-color: #27403E;
     color: white;
+    padding: 4px;
 }
 
 #logoutBtn {
     color: white;
+    padding: 4px; 
 }
 
 dialog {
