@@ -16,7 +16,6 @@ body {
 .chat-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
     overflow-y: auto;
     flex: 1;
     padding-top: 80px; 
@@ -247,7 +246,7 @@ button:hover {
 @media (max-width: 767px) {
 
     .chat-container {
-        padding-top: 120px;
+        padding-top: 20px;
     }
 
     .text-center {
