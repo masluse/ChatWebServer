@@ -15,10 +15,13 @@
         <nav class="navbar navbar-expand-md">
             <!-- Navbar links -->
             <div id="navbarMenu">
-                    <button type="submit" class="btn btn-danger nav-link" id="logoutBtn">Logout</button>
+                <div class="navbar-nav ml-auto">
+                    <div class="nav-item">
+                        <button type="submit" class="btn btn-danger nav-link" id="logoutBtn">Logout</button>
+                    </div>
                     @* Default Navbar Link(s) *@
                     @RenderSection("NavbarLinks", required: false)
-                </ul>
+                </div>
             </div>
         </nav>
     </header>
