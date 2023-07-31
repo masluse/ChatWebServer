@@ -90,6 +90,10 @@ body {
     color: white;
 }
 
+#logoutBtn {
+    color: white;
+}
+
 dialog {
     background-color: #333333;
     color: white;
