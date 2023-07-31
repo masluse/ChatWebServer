@@ -227,6 +227,32 @@ button:hover {
     color: red; 
 }*/
 
+.navbar {
+    background-color: #2F4F4F;
+    padding: 10px;
+}
+
+.nav-item {
+    margin-right: 10px;
+}
+
+.nav-item:last-child {
+    margin-right: 0;
+}
+
+.nav-link {
+    color: white;
+}
+
+.chat-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+    padding-top: 80px;
+}
+
 /* Mobile devices */
 @media (max-width: 767px) {
     #openAdminModalBtn {
@@ -252,4 +278,34 @@ button:hover {
     html {
         font-size: 16px;
     }
+    .navbar-expand-md .navbar-nav .nav-link {
+        display: none;
+    }
+
+    .nav-item:last-child .nav-link {
+        display: block;
+    }
+
+    .navbar-toggler {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1;
+    }
+
+    .navbar-collapse {
+        background-color: #2F4F4F;
+        padding: 10px;
+        position: fixed;
+        top: 50px;
+        left: -100%;
+        transition: left 0.3s;
+    }
+
+        .navbar-collapse.show {
+            left: 0;
+        }
+
 }
+
