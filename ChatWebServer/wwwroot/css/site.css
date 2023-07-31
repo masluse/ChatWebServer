@@ -237,7 +237,7 @@ button:hover {
 
     .text-center {
         position: relative;
-        height: 100vh;
+        min-height: calc(100vh - 64px);
     }
 
     html {
