@@ -1,8 +1,5 @@
 html {
     font-size: 14px;
-}
-
-html {
     position: relative;
     min-height: 100%;
 }
@@ -230,14 +227,27 @@ button:hover {
     margin: 0 auto;
     overflow-y: auto;
     flex: 1;
-    padding-top: 80px;
+    padding-top: 50px;
 }
 
 /* Mobile devices */
 @media (max-width: 767px) {
 
-    .chat-container {
-        padding-top: 20px;
+    .navbar {
+        border-bottom: solid 1px white;
+        padding: 10px;
+    }
+
+    .nav-item {
+        margin-right: 10px;
+    }
+
+    .nav-item:last-child {
+        margin-right: 0;
+    }
+
+    .nav-link {
+        color: white;
     }
 
     .text-center {
@@ -246,8 +256,15 @@ button:hover {
     }
 
     html {
-        font-size: 16px;
+        font-size: 14px;
+        position: relative;
+        min-height: 100%;
     }
 
+    body {
+        margin: 0;
+        padding-bottom: 60px;
+        background-color: #333333;
+    }
 }
 
