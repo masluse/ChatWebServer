@@ -170,18 +170,18 @@
 });
 
 function manageSideBar() {
-    console.log("click")
-    let mainElement = document.getElementById("main").style.marginLeft; 
-    let sidenavElement = document.getElementById("mySidenav").style.width;
-    let inputBox = document.getElementById("inputBox").style.marginLeft;
+    console.log("click");
+    let mainElement = document.getElementById("main");
+    let sidenavElement = document.getElementById("mySidenav");
+    let inputBox = document.getElementById("inputBox");
 
-    if (mainElement === "0") {
-        sidenavElement = "250px";
-        mainElement = "250px";
-        inputBox = "250px";
+    if (mainElement.style.marginLeft === "0px") {
+        sidenavElement.style.width = "250px";
+        mainElement.style.marginLeft = "250px";
+        inputBox.style.marginLeft = "250px";
     } else {
-        sidenavElement = "0";
-        mainElement = "0";
-        inputBox = "0";
+        sidenavElement.style.width = "0";
+        mainElement.style.marginLeft = "0";
+        inputBox.style.marginLeft = "0";
     }
 }
