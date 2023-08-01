@@ -169,16 +169,15 @@
 
 });
 
-window.scrollTo(0, document.body.scrollHeight);
+function manageSideBar() {
+    let mainElement = document.getElementById("main").style.marginLeft; 
+    let sidenavElement = document.getElementById("mySidenav").style.width;
 
-/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-}
-
-/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
+    if (mainElement === "0") {
+        sidenavElement = "250px";
+        mainElement = "250px";
+    } else {
+        sidenavElement = "0";
+        mainElement = "0";
+    }
 }
