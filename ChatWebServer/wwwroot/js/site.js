@@ -237,16 +237,15 @@ function closeCreateNewChatDialog() {
 }
 
 function createNewChat() {
+    const selectedUsers = [];
     const checkboxes = document.getElementsByClassName("user-checkbox");
 
-    const checkedUsernames = [];
-
-    for (let i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-            const username = checkboxes[i].getAttribute("data-username");
-            checkedUsernames.push(username);
+    for (const checkbox of checkboxes) {
+        if (checkbox.checked) {
+            selectedUsers.push(checkbox.value);
         }
     }
 
-    console.log("Checked Users:", checkedUsernames);
+    console.log(selectedUsers);
+    closeCreateNewChatDialog();
 }
