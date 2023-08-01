@@ -179,11 +179,11 @@ function manageSideBar() {
         sidenavElement.style.width = "250px";
         mainElement.style.marginLeft = "250px";
         inputBox.style.marginLeft = "250px";
-        chats.style.hidden = "true";
+        chats.style.display = "block";
     } else {
         sidenavElement.style.width = "0";
         mainElement.style.marginLeft = "0";
         inputBox.style.marginLeft = "0";
-        chats.style.hidden = "false";
+        chats.style.display = "none";
     }
 }
