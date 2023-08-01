@@ -208,9 +208,9 @@ button:hover {
     transform: rotate(45deg);
 }
 
-/*.admin {
+.admin {
     color: red; 
-}*/
+}
 
 .navbar {
     position: fixed;

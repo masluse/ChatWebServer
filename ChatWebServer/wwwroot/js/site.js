@@ -18,9 +18,21 @@
 
     socket.onmessage = function (e) {
         console.log(e);
+        var messageData = e.data.split(":");
+        var username = messageData[0].trim();
+        var message = messageData.slice(1).join(":").trim();
         var messageDiv = document.createElement("div");
         messageDiv.className = "message";
-        messageDiv.textContent = e.data;
+        var usernameSpan = document.createElement("span");
+        usernameSpan.textContent = username + ": ";
+
+        if (currentUser.Role === "ADMIN") {
+            usernameSpan.classList.add("admin");
+        }
+        var messageSpan = document.createElement("span");
+        messageSpan.textContent = message;
+        messageDiv.appendChild(usernameSpan);
+        messageDiv.appendChild(messageSpan);
         document.getElementById("msgs").appendChild(messageDiv);
         
     };
@@ -37,12 +49,12 @@
 
         e.preventDefault();
 
-        if (!userName) {
+        if (!currentUser) {
             console.error("User is not authenticated.");
             return;
         }
 
-        var message = userName + ": " + this.value;
+        var message = currentUser.Username + ": " + this.value;
         var messageValue = this.value;
         socket.send(message);
 
@@ -133,13 +145,6 @@
                 showErrorToast("An error occurred while logging out.");
             });
     });
-
-
-    function getUserRole(username) {
-        var user = userListData.find(user => user.Username === username);
-
-        return user ? user.Role : "";
-    }
 
     // Toasts 
 

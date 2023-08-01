@@ -83,6 +83,20 @@ namespace ChatWebServer.Controllers
             _logger.LogInformation("Accessing AdminPage.");
 
             var userList = _context.Users.ToList();
+
+
+            // Get the current user's username from the ClaimsPrincipal
+            var username = User.Identity.Name;
+
+            // Find the user in the database using the username
+            var currentUser = _context.Users.FirstOrDefault(u => u.Username == username);
+
+            // Serialize the current user object to JSON
+            var serializedCurrentUser = JsonSerializer.Serialize(currentUser);
+
+            ViewBag.UserList = userList;
+            ViewBag.SerializedCurrentUser = serializedCurrentUser;
+
             return View(userList);
         }
 

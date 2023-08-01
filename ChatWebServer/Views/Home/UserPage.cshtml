@@ -34,7 +34,7 @@
 @* Escape the username and store it in a JavaScript variable *@
 <script>
     var userName = @Json.Serialize(Context.User.Identity.Name);
-    var userObject = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
+    var currentUser = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
 
     const manageAccountBt = document.getElementById("manageAccountBtn");
     const updateUsernameInput = document.getElementById("userUpdateUsername")
@@ -43,15 +43,15 @@
         manageAccountDialog.showModal();
     });
 
-        function userUpdateUser() {
-        const password = document.getElementById("userUpdatePassword").value;
-        const username = document.getElementById("userUpdateUsername").value;
+    function userUpdateUser() {
+        let password = document.getElementById("userUpdatePassword").value;
+        let username = document.getElementById("userUpdateUsername").value;
         
-        const userID = userObject.UserID;
-        const role = userObject.Role;
-        const IsActive = userObject.IsActive; 
+        let userID = currentUser.UserID;
+        let role = currentUser.Role;
+        let IsActive = currentUser.IsActive; 
 
-        if (password === "") password = userObject.Password
+        if (password === "") password = currentUser.Password
 
 
         const formData = new FormData();
