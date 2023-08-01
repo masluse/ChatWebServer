@@ -144,6 +144,30 @@ namespace ChatWebServer.Controllers
         }
 
         [HttpPost]
+        [Authorize]
+        public IActionResult userUpdateUser(User user)
+        {
+            _logger.LogInformation("userUpdating user.");
+
+            var existingUser = _context.Users.FirstOrDefault(u => u.UserID == user.UserID);
+            if (existingUser == null)
+            {
+                _logger.LogWarning("User with ID {UserID} was not found.", user.UserID);
+                return NotFound("User with ID " + user.UserID + " was not found");
+            }
+
+            existingUser.Username = user.Username;
+            existingUser.Role = user.Role;
+            existingUser.IsActive = user.IsActive;
+
+            _context.SaveChanges();
+
+            _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
+
+            return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
+        }
+
+        [HttpPost]
         [Authorize(Policy = "AdminOnly")]
         public IActionResult DeleteUser(int userId)
         {
