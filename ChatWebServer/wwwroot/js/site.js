@@ -246,6 +246,22 @@ function createNewChat() {
         }
     }
 
-    console.log(selectedUsers);
-    closeCreateNewChatDialog();
+    var formData = new FormData();
+    formData.append("users", selectedUsers);
+
+    fetch("/Home/CreateChat", {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        location.reload();
+        });
+    })
+    .catch(error => {
+        console.error("Error fetching last messages: ", error);
+        showErrorToast("Error fetching last messages")
+    });
+    
 }

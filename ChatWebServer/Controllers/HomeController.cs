@@ -261,6 +261,17 @@ namespace ChatWebServer.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult CreateNewChat(string[] usernames)
+        {
+            var users = _context.Users
+                .Where(u => usernames.Contains(u.Username))
+                .ToArray(); 
+
+            return Json(users);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
