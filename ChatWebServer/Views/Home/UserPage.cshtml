@@ -14,75 +14,9 @@
     <div id="inputBox">
         <input type="text" id="messageField" placeholder="Type a message and press Enter" />
     </div>
-
-    <dialog id="manageAccountDialog">
-        <h3>Account Settings</h3>
-        <form method="dialog">
-            <div class="form-group">
-                <label for="userUpdateUsername">Username</label>
-                    <input type="text" class="form-control" id="userUpdateUsername">
-            </div>
-                <div class="form-group">
-                    <label for="userUpdatePassword">Password</label>
-                    <input type="password" class="form-control" id="userUpdatePassword" placeholder="Update Password">
-                </div>
-            <button type="submit" onclick="userUpdateUser()">Apply</button>
-        </form>
-            <button class="btn btn-secondary" onclick="closeAccountDialog()">Close</button>
-    </dialog>
 </div>
 
 
 <script>
     var currentUser = JSON.parse('@Html.Raw(ViewBag.SerializedCurrentUser)');
-    console.log(currentUser);
-
-    const manageAccountBt = document.getElementById("manageAccountBtn");
-    const updateUsernameInput = document.getElementById("userUpdateUsername");
-    let passwordInput = document.getElementById("userUpdatePassword");
-    let usernameInput = document.getElementById("userUpdateUsername");
-
-    usernameInput.value = currentUser.Username;  
-
-    manageAccountBt.addEventListener("click", () => {
-        manageAccountDialog.showModal();
-    });
-
-    function closeAccountDialog() {
-        manageAccountDialog.close();
-    }
-
-    function userUpdateUser() {
-        
-        let username = usernameInput.value;
-        let password = passwordInput.value;
-        let userID = currentUser.UserID;
-        let role = currentUser.Role;
-        let isActive = currentUser.IsActive; 
-
-        if (password === "") password = currentUser.Password
-
-        const formData = new FormData();
-        formData.append("UserID", userID);
-        formData.append("Username", username);
-        formData.append("Password", password)
-        formData.append("Role", role);
-        formData.append("IsActive", isActive);
-
-        if (confirm("Are you sure you want to update the settings?")) {
-            fetch("/Home/UserUpdateUser", {
-                method: "POST",
-                body: formData,
-            })
-                .then(response => response.json())
-                .then(updatedUser => {
-                    location.reload(true);
-                })
-                .catch(error => {
-                    console.error("Error updating user:", error);
-                });
-        }
-
-    }
-
 </script>
