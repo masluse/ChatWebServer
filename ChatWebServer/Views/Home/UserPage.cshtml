@@ -70,12 +70,35 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    
+                    reloadPage()
                 })
                 .catch(error => {
                     console.error("Error updating user:", error);
                 });
         }
 
+    }
+
+    function reloadPage() {
+            fetch('/Home/UserPage', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('UserPage data:', data);
+                window.location.href = '/Home/UserPage';
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the fetch request
+                console.error('Error:', error);
+            });
     }
 </script>
