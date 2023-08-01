@@ -291,7 +291,15 @@ button:hover {
 
 #main {
     transition: margin-left .5s;
-    padding: 20px;
+}
+
+#menu-icon {
+    cursor: pointer;
+}
+
+#login-header {
+    padding: 1em; 
+    border-bottom: solid white 1px;
 }
 
 /* Mobile devices */
