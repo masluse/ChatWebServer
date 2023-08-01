@@ -257,7 +257,6 @@ function createNewChat() {
     .then(response => response.json())
     .then(data => {
         location.reload();
-        });
     })
     .catch(error => {
         console.error("Error fetching last messages: ", error);
