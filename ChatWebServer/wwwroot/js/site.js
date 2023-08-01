@@ -190,5 +190,5 @@ const openNewChatDialogBtn = document.getElementById("createChatBtn");
 const newChatDialog = document.getElementById("newChatDialog");
 
 openNewChatDialogBtn.addEventListener("click", () => {
-    favDialog.showModal();
+    newChatDialog.showModal();
 });
