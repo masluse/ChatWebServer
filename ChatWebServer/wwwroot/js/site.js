@@ -179,11 +179,15 @@ function manageSideBar() {
         sidenavElement.style.width = "250px";
         mainElement.style.marginLeft = "250px";
         inputBox.style.marginLeft = "250px";
-        chats.style.display = "block";
+        for (let i = 0; i < chats.length; i++) {
+            chats[i].style.display = "block";
+        }
     } else {
         sidenavElement.style.width = "0";
         mainElement.style.marginLeft = "0";
         inputBox.style.marginLeft = "0";
-        chats.style.display = "none";
+        for (let i = 0; i < chats.length; i++) {
+            chats[i].style.display = "none";
+        }
     }
 }
