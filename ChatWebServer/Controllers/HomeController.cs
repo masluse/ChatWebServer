@@ -98,7 +98,7 @@ namespace ChatWebServer.Controllers
             var currentUser = _context.Users.FirstOrDefault(u => u.Username == username);
             var serializedUser = JsonSerializer.Serialize(currentUser);
 
-            ViewBag.SerializedUser = serializedUser;
+            ViewBag.SerializedCurrentUser = serializedUser;
 
             return View(currentUser);
         }
