@@ -145,7 +145,7 @@ namespace ChatWebServer.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult userUpdateUser(User user)
+        public IActionResult UserUpdateUser(User user)
         {
             _logger.LogInformation("userUpdating user.");
 

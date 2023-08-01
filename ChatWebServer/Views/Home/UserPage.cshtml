@@ -61,7 +61,7 @@
         formData.append("Role", role);
         formData.append("IsActive", isActive);
 
-        fetch("/Home/UpdateUser", {
+            fetch("/Home/UserUpdateUser", {
             method: "POST",
             body: formData,
         })
