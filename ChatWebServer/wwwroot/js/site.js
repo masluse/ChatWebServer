@@ -236,7 +236,7 @@ function closeCreateNewChatDialog() {
 }
 
 function createNewChat() {
-    const userCheckboxes = document.querySelectorAll(".user-checkbox");
+    const userCheckboxes = document.getElementsByClassName("user-checkbox");
 
     const checkedUsernames = [];
 
