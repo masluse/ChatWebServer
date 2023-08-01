@@ -127,6 +127,21 @@ namespace ChatWebServer.Controllers
             return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
 
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllUsers()
+        {
+            _logger.LogInformation("Getting all users.");
+
+            var users = _context.Users.Select(u => new
+            {
+                UserID = u.UserID,
+                Username = u.Username
+            }).ToList();
+
+            return Json(users);
+        }
+
 
         [HttpPost]
         [Authorize(Policy = "AdminOnly")]

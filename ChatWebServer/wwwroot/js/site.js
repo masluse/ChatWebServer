@@ -195,5 +195,37 @@ const openNewChatDialogBtn = document.getElementById("createChatBtn");
 const newChatDialog = document.getElementById("newChatDialog");
 
 openNewChatDialogBtn.addEventListener("click", () => {
-    newChatDialog.showModal();
+    // Fetch the list of users from the server
+    fetch("/Home/GetAllUsers")
+        .then((response) => response.json())
+        .then((data) => {
+            // Clear any existing checkboxes in the dialog
+            const userListContainer = document.getElementById("userList");
+            userListContainer.innerHTML = "";
+
+            // Create a checkbox for each user
+            data.forEach((user) => {
+                const userBox = document.createElement("div");
+                userBox.classList.add("user-box");
+
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.id = `userCheckbox_${user.userID}`;
+                input.value = user.username;
+
+                const label = document.createElement("label");
+                label.textContent = user.username;
+                label.htmlFor = `userCheckbox_${user.userID}`;
+
+                userBox.appendChild(input);
+                userBox.appendChild(label);
+                userListContainer.appendChild(userBox);
+            });
+
+            // Show the dialog
+            newChatDialog.showModal();
+        })
+        .catch((error) => {
+            console.error("Error fetching users: ", error);
+        });
 });

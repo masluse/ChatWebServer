@@ -46,9 +46,14 @@
         <main id="main" role="main" class="pb-3">
             @RenderBody()
             <dialog id="newChatDialog">
-                <p>Greetings, one and all!</p>
+                <h2>Select User(s)</h2>
                 <form method="dialog">
-                    <button>OK</button>
+                    <div id="userList">
+                        <!-- User checkboxes will be dynamically added here -->
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="createChat()">Create Chat</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
                 </form>
             </dialog>
         </main>
