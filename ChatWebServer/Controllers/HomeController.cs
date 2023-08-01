@@ -79,14 +79,8 @@ namespace ChatWebServer.Controllers
 
             var userList = _context.Users.ToList();
 
-
-            // Get the current user's username from the ClaimsPrincipal
             var username = User.Identity.Name;
-
-            // Find the user in the database using the username
             var currentUser = _context.Users.FirstOrDefault(u => u.Username == username);
-
-            // Serialize the current user object to JSON
             var serializedCurrentUser = JsonSerializer.Serialize(currentUser);
 
             ViewBag.UserList = userList;
@@ -101,14 +95,9 @@ namespace ChatWebServer.Controllers
             _logger.LogInformation("Accessing UserPage.");
 
             var username = User.Identity.Name;
-
-            // Find the user in the database using the username
             var user = _context.Users.FirstOrDefault(u => u.Username == username);
-
-            // Serialize the user object to JSON
             var serializedUser = JsonSerializer.Serialize(user);
 
-            // Pass the serialized user JSON string to the view
             ViewBag.SerializedUser = serializedUser;
 
             return View(user);
@@ -160,7 +149,7 @@ namespace ChatWebServer.Controllers
 
             _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
 
-            return RedirectToAction("UserPage");
+            return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
 
 
