@@ -28,6 +28,7 @@
                 </div>
             <button type="submit" onclick="userUpdateUser()">Apply</button>
         </form>
+            <button class="btn btn-secondary" onclick="closeAccountDialog()">Close</button>
     </dialog>
 </div>
 
@@ -37,15 +38,19 @@
     var currentUser = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
 
     const manageAccountBt = document.getElementById("manageAccountBtn");
-    const updateUsernameInput = document.getElementById("userUpdateUsername")
+    const updateUsernameInput = document.getElementById("userUpdateUsername");
+    let passwordInput = document.getElementById("userUpdatePassword");
+    let usernameInput = document.getElementById("userUpdateUsername");
 
     manageAccountBt.addEventListener("click", () => {
         manageAccountDialog.showModal();
     });
 
+    function closeAccountDialog() {
+        manageAccountDialog.close();
+    }
+
     function userUpdateUser() {
-        let passwordInput = document.getElementById("userUpdatePassword");
-        let usernameInput = document.getElementById("userUpdateUsername");
         
         let username = usernameInput.value;
         let password = passwordInput.value;
@@ -54,7 +59,6 @@
         let isActive = currentUser.IsActive; 
 
         if (password === "") password = currentUser.Password
-
 
         const formData = new FormData();
         formData.append("UserID", userID);
