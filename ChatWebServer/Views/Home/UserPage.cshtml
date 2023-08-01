@@ -63,19 +63,21 @@
         formData.append("Role", role);
         formData.append("IsActive", isActive);
 
+        if (confirm("Are you sure you want to update the settings?")) {
             fetch("/Home/UserUpdateUser", {
-            method: "POST",
-            body: formData,
-        })
-            .then(response => response.json())
-            .then(data => {
-                showSuccessToast("User updated successfully.");
-                location.reload();
+                method: "POST",
+                body: formData,
             })
-            .catch(error => {
-                console.error("Error updating user:", error);
-                showErrorToast("Error updating user");
-            });
+                .then(response => response.json())
+                .then(data => {
+                    showSuccessToast("User updated successfully.");
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error("Error updating user:", error);
+                    showErrorToast("Error updating user");
+                });
+        }
 
         usernameInput.value = "";
         passwordInput.value = ""
