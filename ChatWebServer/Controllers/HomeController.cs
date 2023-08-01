@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using System.Text.Json;
 
 namespace ChatWebServer.Controllers
 {
@@ -90,7 +91,18 @@ namespace ChatWebServer.Controllers
         {
             _logger.LogInformation("Accessing UserPage.");
 
-            return View();
+            var username = User.Identity.Name;
+
+            // Find the user in the database using the username
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+
+            // Serialize the user object to JSON
+            var serializedUser = JsonSerializer.Serialize(user);
+
+            // Pass the serialized user JSON string to the view
+            ViewBag.SerializedUser = serializedUser;
+
+            return View(user);
         }
 
         [HttpPost]

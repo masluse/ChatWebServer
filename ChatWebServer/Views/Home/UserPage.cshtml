@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model ChatWebServer.Models.User
 @{
     ViewData["Title"] = "Chat Page";
 }
@@ -14,9 +14,31 @@
     <div id="inputBox">
         <input type="text" id="messageField" placeholder="Type a message and press Enter" />
     </div>
+
+    <dialog id="newChatDialog">
+        <h3>Account Settings</h3>
+        <form method="dialog">
+            <div class="form-group">
+                <label for="userUpdateUsername">Username</label>
+                    <input type="text" class="form-control" id="userUpdateUsername" value="@Model.Username">
+            </div>
+            <button type="submit">Apply</button>
+        </form>
+    </dialog>
 </div>
 
 @* Escape the username and store it in a JavaScript variable *@
 <script>
     var userName = @Json.Serialize(Context.User.Identity.Name);
+    var userObject = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
+
+    console.debug(userObject)
+    console.log(userObject)
+
+    const manageAccountBt = document.getElementById("manageAccountBtn");
+    const updateUsernameInput = document.getElementById("userUpdateUsername")
+
+    manageAccountBt.addEventListener("click", () => {
+        newChatDialog.showModal();
+    });
 </script>
