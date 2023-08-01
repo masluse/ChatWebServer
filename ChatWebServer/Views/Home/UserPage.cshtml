@@ -78,6 +78,7 @@
                 .then(updatedUser => {
                     // Update the currentUser object with the updated user information
                     currentUser = updatedUser;
+                    passwordInput.value = "";
                     console.log("User updated:", currentUser);
                 })
                 .catch(error => {
