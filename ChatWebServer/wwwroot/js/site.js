@@ -170,6 +170,7 @@
 });
 
 function manageSideBar() {
+    console.log("click")
     let mainElement = document.getElementById("main").style.marginLeft; 
     let sidenavElement = document.getElementById("mySidenav").style.width;
     let inputBox = document.getElementById("inputBox").style.marginLeft;
