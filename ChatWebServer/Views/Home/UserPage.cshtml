@@ -20,7 +20,7 @@
         <form method="dialog">
             <div class="form-group">
                 <label for="userUpdateUsername">Username</label>
-                    <input type="text" class="form-control" id="userUpdateUsername" value="@Model.Username">
+                    <input type="text" class="form-control" id="userUpdateUsername">
             </div>
                 <div class="form-group">
                     <label for="userUpdatePassword">Password</label>
@@ -34,13 +34,14 @@
 
 @* Escape the username and store it in a JavaScript variable *@
 <script>
-    var userName = @Json.Serialize(Context.User.Identity.Name);
     var currentUser = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
 
     const manageAccountBt = document.getElementById("manageAccountBtn");
     const updateUsernameInput = document.getElementById("userUpdateUsername");
     let passwordInput = document.getElementById("userUpdatePassword");
     let usernameInput = document.getElementById("userUpdateUsername");
+
+    usernameInput.value = currentUser.Username;  
 
     manageAccountBt.addEventListener("click", () => {
         manageAccountDialog.showModal();
