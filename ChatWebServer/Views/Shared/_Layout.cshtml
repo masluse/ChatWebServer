@@ -27,25 +27,30 @@
     <!-- Sidebar menu -->
     <div id="mySidenav" class="sidenav">
         <div class="chat-box">
-            <h4>Name of the Chat</h4>
+            <h5>Name of the Chat</h5>
             <p>Last message</p>
         </div>
         <div class="chat-box">
-            <h4>Name of the Chat</h4>
+            <h5>Name of the Chat</h5>
             <p>Last message</p>
         </div>
         <div class="chat-box">
-            <h4>Name of the Chat</h4>
+            <h5>Name of the Chat</h5>
             <p>Last message</p>
         </div>
         <div id="createChatContainer">
             <button type="button" class="btn btn-primary" id="createChatBtn">Create new chat</button>
         </div>
-        
     </div>
     <div class="container">
         <main id="main" role="main" class="pb-3">
             @RenderBody()
+            <dialog id="newChatDialog">
+                <p>Greetings, one and all!</p>
+                <form method="dialog">
+                    <button>OK</button>
+                </form>
+            </dialog>
         </main>
     </div>
 
