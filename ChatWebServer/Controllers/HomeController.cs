@@ -142,7 +142,7 @@ namespace ChatWebServer.Controllers
         [Authorize]
         public IActionResult UserUpdateUser(User user)
         {
-            _logger.LogInformation("userUpdating user.");
+            _logger.LogInformation("Updating user.");
 
             var existingUser = _context.Users.FirstOrDefault(u => u.UserID == user.UserID);
             if (existingUser == null)
@@ -160,8 +160,9 @@ namespace ChatWebServer.Controllers
 
             _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
 
-            return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
+            return RedirectToAction("UserPage");
         }
+
 
         [HttpPost]
         [Authorize(Policy = "AdminOnly")]
