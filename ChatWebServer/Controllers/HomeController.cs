@@ -146,9 +146,7 @@ namespace ChatWebServer.Controllers
 
             _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
 
-            ViewBag.SerializedCurrentUser = existingUser;
-
-            return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
+            return Json(existingUser);
         }
 
 
