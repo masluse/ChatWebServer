@@ -236,5 +236,16 @@ function closeCreateNewChatDialog() {
 }
 
 function createNewChat() {
+    const userCheckboxes = document.querySelectorAll(".user-checkbox");
 
+    const checkedUsernames = [];
+
+    userCheckboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            const username = checkbox.dataset.username;
+            checkedUsernames.push(username);
+        }
+    });
+
+    console.log("Checked Users:", checkedUsernames);
 }
