@@ -35,6 +35,7 @@
 
 <script>
     var currentUser = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
+    console.log(currentUser);
 
     const manageAccountBt = document.getElementById("manageAccountBtn");
     const updateUsernameInput = document.getElementById("userUpdateUsername");
@@ -75,7 +76,7 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                    location.reload();
+                    
                 })
                 .catch(error => {
                     console.error("Error updating user:", error);
