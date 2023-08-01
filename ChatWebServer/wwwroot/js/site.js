@@ -172,12 +172,15 @@
 function manageSideBar() {
     let mainElement = document.getElementById("main").style.marginLeft; 
     let sidenavElement = document.getElementById("mySidenav").style.width;
+    let inputBox = document.getElementById("inputBox").style.marginLeft;
 
     if (mainElement === "0") {
         sidenavElement = "250px";
         mainElement = "250px";
+        inputBox = "250px";
     } else {
         sidenavElement = "0";
         mainElement = "0";
+        inputBox = "0";
     }
 }
