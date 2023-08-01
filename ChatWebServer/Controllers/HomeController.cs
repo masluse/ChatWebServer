@@ -152,6 +152,7 @@ namespace ChatWebServer.Controllers
             }
 
             existingUser.Username = user.Username;
+            existingUser.Password = PasswordHasher.HashPassword(user.Password);
             existingUser.Role = user.Role;
             existingUser.IsActive = user.IsActive;
 
