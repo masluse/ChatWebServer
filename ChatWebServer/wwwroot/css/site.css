@@ -80,7 +80,7 @@ header {
 #openAdminModalBtn {
     background-color: #27403E;
     color: white;
-    padding: 4px;
+    padding: 6px;
 }
 
 #logoutBtn {
@@ -217,7 +217,7 @@ button:hover {
     left: 0;
     right: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     border-bottom: solid 1px white;
     padding: 10px;
