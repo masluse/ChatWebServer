@@ -236,16 +236,24 @@ function closeCreateNewChatDialog() {
 }
 
 function createNewChat() {
-    const userCheckboxes = document.getElementsByClassName("user-checkbox");
+    // Get all the user checkboxes by their class name
+    const checkboxes = document.getElementsByClassName("user-checkbox");
 
+    // Create an array to store the usernames of checked users
     const checkedUsernames = [];
 
-    userCheckboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            const username = checkbox.dataset.username;
+    // Loop through all the checkboxes
+    for (let i = 0; i < checkboxes.length; i++) {
+        // Check if the checkbox is checked
+        if (checkboxes[i].checked) {
+            // Get the username from the data attribute of the checkbox
+            const username = checkboxes[i].getAttribute("data-username");
             checkedUsernames.push(username);
         }
-    });
+    }
 
+    // Now, the checkedUsernames array contains the usernames of the checked users
     console.log("Checked Users:", checkedUsernames);
+
+    // Add your logic here to create the chat or perform any other action with the checked users
 }
