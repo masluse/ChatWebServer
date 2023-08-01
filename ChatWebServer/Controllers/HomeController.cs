@@ -122,9 +122,7 @@ namespace ChatWebServer.Controllers
 
             _context.SaveChanges();
 
-            _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
-
-            ViewBag.SerializedCurrentUser = existingUser;
+            _logger.LogInformation("User updated successfully: {UserID}", user.UserID)
 
             return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
@@ -147,6 +145,8 @@ namespace ChatWebServer.Controllers
             _context.SaveChanges();
 
             _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
+
+            ViewBag.SerializedCurrentUser = existingUser;
 
             return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
