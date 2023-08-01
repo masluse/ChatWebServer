@@ -20,11 +20,11 @@
         <form method="dialog">
             <div class="form-group">
                 <label for="userUpdateUsername">Username</label>
-                    <input type="text" class="form-control" id="userUpdateUsername">
+                    <input type="text" class="form-control" id="userUpdateUsername" value="@Model.Username">
             </div>
                 <div class="form-group">
                     <label for="userUpdatePassword">Password</label>
-                    <input type="text" class="form-control" id="userUpdatePassword" placeholder="Update Password">
+                    <input type="password" class="form-control" id="userUpdatePassword" placeholder="Update Password">
                 </div>
             <button type="submit" onclick="userUpdateUser()">Apply</button>
         </form>
@@ -35,7 +35,6 @@
 
 <script>
     var currentUser = JSON.parse('@Html.Raw(ViewBag.SerializedCurrentUser)');
-    console.log(currentUser);
 
     const manageAccountBt = document.getElementById("manageAccountBtn");
     const updateUsernameInput = document.getElementById("userUpdateUsername");
