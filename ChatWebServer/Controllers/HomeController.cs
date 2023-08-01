@@ -95,12 +95,12 @@ namespace ChatWebServer.Controllers
             _logger.LogInformation("Accessing UserPage.");
 
             var username = User.Identity.Name;
-            var user = _context.Users.FirstOrDefault(u => u.Username == username);
-            var serializedUser = JsonSerializer.Serialize(user);
+            var currentUser = _context.Users.FirstOrDefault(u => u.Username == username);
+            var serializedUser = JsonSerializer.Serialize(currentUser);
 
             ViewBag.SerializedUser = serializedUser;
 
-            return View(user);
+            return View(currentUser);
         }
 
         [HttpPost]
@@ -128,7 +128,6 @@ namespace ChatWebServer.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public IActionResult UserUpdateUser(User user)
         {
             _logger.LogInformation("Updating user.");
@@ -142,8 +141,6 @@ namespace ChatWebServer.Controllers
 
             existingUser.Username = user.Username;
             existingUser.Password = PasswordHasher.HashPassword(user.Password);
-            existingUser.Role = user.Role;
-            existingUser.IsActive = user.IsActive;
 
             _context.SaveChanges();
 
