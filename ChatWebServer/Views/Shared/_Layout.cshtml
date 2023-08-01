@@ -46,14 +46,14 @@
         <main id="main" role="main" class="pb-3">
             @RenderBody()
             <dialog id="newChatDialog">
-                <h2>Select User(s) for a chat</h2>
+                <h2 class="text-center">Select User(s) for a chat</h2>
                 <form method="dialog">
                     <div id="userList">
                         <!-- User checkboxes will be dynamically added here -->
                     </div>
 
-                    <button type="button" class="btn btn-primary" onclick="createChat()">Create Chat</button>
-                    <button type="button" class="btn btn-secondary" onclick="closeDialog()">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="createNewChat()">Create Chat</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeCreateNewChatDialog()">Cancel</button>
                 </form>
             </dialog>
         </main>

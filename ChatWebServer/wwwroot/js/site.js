@@ -228,4 +228,13 @@ openNewChatDialogBtn.addEventListener("click", () => {
         .catch((error) => {
             console.error("Error fetching users: ", error);
         });
+
 });
+
+function closeCreateNewChatDialog() {
+    newChatDialog.close();
+}
+
+function createNewChat() {
+
+}
