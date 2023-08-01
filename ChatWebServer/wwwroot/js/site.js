@@ -170,6 +170,7 @@
 });
 
 function manageSideBar() {
+    let chats = document.getElementsByClassName("chat-box");
     let mainElement = document.getElementById("main");
     let sidenavElement = document.getElementById("mySidenav");
     let inputBox = document.getElementById("inputBox");
@@ -178,9 +179,11 @@ function manageSideBar() {
         sidenavElement.style.width = "250px";
         mainElement.style.marginLeft = "250px";
         inputBox.style.marginLeft = "250px";
+        chats.style.hidden = "true";
     } else {
         sidenavElement.style.width = "0";
         mainElement.style.marginLeft = "0";
         inputBox.style.marginLeft = "0";
+        chats.style.hidden = "false";
     }
 }
