@@ -225,6 +225,10 @@ button:hover {
     z-index: 9999; 
 }
 
+.navbar-nav {
+    justify-content: right;
+}
+
 .navbar-nav .btn {
     margin-left: 10px;
 }
@@ -239,6 +243,11 @@ button:hover {
     overflow-y: auto;
     flex: 1;
     padding-top: 50px;
+}
+
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
 }
 
 /* Mobile devices */
