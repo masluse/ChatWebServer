@@ -122,7 +122,7 @@ namespace ChatWebServer.Controllers
 
             _context.SaveChanges();
 
-            _logger.LogInformation("User updated successfully: {UserID}", user.UserID)
+            _logger.LogInformation("User updated successfully: {UserID}", user.UserID);
 
             return Ok(new { Message = "User updated successfully.", UserId = user.UserID });
         }
