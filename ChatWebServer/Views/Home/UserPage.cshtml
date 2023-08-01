@@ -15,13 +15,17 @@
         <input type="text" id="messageField" placeholder="Type a message and press Enter" />
     </div>
 
-    <dialog id="newChatDialog">
+    <dialog id="manageAccountDialog">
         <h3>Account Settings</h3>
         <form method="dialog">
             <div class="form-group">
                 <label for="userUpdateUsername">Username</label>
                     <input type="text" class="form-control" id="userUpdateUsername" value="@Model.Username">
             </div>
+                <div class="form-group">
+                    <label for="userUpdatePassword">Password</label>
+                    <input type="text" class="form-control" id="userUpdatePassword" placeholder="Update Paccword">
+                </div>
             <button type="submit">Apply</button>
         </form>
     </dialog>
@@ -32,13 +36,43 @@
     var userName = @Json.Serialize(Context.User.Identity.Name);
     var userObject = JSON.parse('@Html.Raw(ViewBag.SerializedUser)');
 
-    console.debug(userObject)
-    console.log(userObject)
-
     const manageAccountBt = document.getElementById("manageAccountBtn");
     const updateUsernameInput = document.getElementById("userUpdateUsername")
 
     manageAccountBt.addEventListener("click", () => {
-        newChatDialog.showModal();
+        manageAccountDialog.showModal();
     });
+
+    function updateUser() {
+        const password = document.getElementById("userUpdatePassword").value;
+        const username = document.getElementById("userUpdateUsername").value;
+        
+        const userID = userObject.UserID;
+        const role = userObject.Role;
+        const IsActive = userObject.IsActive; 
+
+        if (password === "") password = userObject.Password
+
+
+        const formData = new FormData();
+        formData.append("UserID", userID);
+        formData.append("Username", username);
+        formData.append("Password", password)
+        formData.append("Role", role);
+        formData.append("IsActive", isActive);
+
+        fetch("/Home/UpdateUser", {
+            method: "POST",
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                showSuccessToast("User updated successfully.");
+                location.reload();
+            })
+            .catch(error => {
+                console.error("Error updating user:", error);
+                showErrorToast("Error updating user");
+            });
+    }
 </script>
