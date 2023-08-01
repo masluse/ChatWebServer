@@ -76,10 +76,7 @@
             })
                 .then(response => response.json())
                 .then(updatedUser => {
-                    // Update the currentUser object with the updated user information
-                    currentUser = updatedUser;
-                    passwordInput.value = "";
-                    console.log("User updated:", currentUser);
+                    location.reload(true);
                 })
                 .catch(error => {
                     console.error("Error updating user:", error);
